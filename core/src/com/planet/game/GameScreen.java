@@ -9,14 +9,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameScreen extends ScreenAdapter {
 	private PlanetGame planetGame;
-	private Texture shipImg;
 	private Ship ship;
     World world;
     WorldRenderer worldRenderer;
 	 
     public GameScreen(PlanetGame planetGame) {
         this.planetGame = planetGame;
-        shipImg = new Texture("astronaut.png");
         world = new World(planetGame);
         worldRenderer = new WorldRenderer(planetGame,world);
         ship = world.getShip();
@@ -33,10 +31,8 @@ public class GameScreen extends ScreenAdapter {
     	Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     	update(delta);
-    	SpriteBatch batch = planetGame.batch;
-        batch.begin();
-        batch.draw(shipImg, ship.getPosition().x, ship.getPosition().y);
-        batch.end();
+    	updateAction();
+    	worldRenderer.render(delta);
     }
     
     private void updateShipDirection() {
@@ -53,5 +49,11 @@ public class GameScreen extends ScreenAdapter {
     	if(Gdx.input.isKeyPressed(Keys.RIGHT)) {
     		ship.setNextDirection(Ship.DIRECTION_RIGHT);
         }
+    }
+    
+    private void updateAction() {
+    	if(Gdx.input.isKeyJustPressed(Keys.SPACE)) {
+    		world.createBullet();
+    	}
     }
 }
