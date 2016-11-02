@@ -12,6 +12,7 @@ public class GameScreen extends ScreenAdapter {
 	private Ship ship;
     World world;
     WorldRenderer worldRenderer;
+    
 	 
     public GameScreen(PlanetGame planetGame) {
         this.planetGame = planetGame;
@@ -38,22 +39,28 @@ public class GameScreen extends ScreenAdapter {
     private void updateShipDirection() {
     	Ship ship = world.getShip();
     	if(Gdx.input.isKeyPressed(Keys.UP)) {
-    		ship.setNextDirection(Ship.DIRECTION_UP);
+    		//ship.setNextDirection(Ship.DIRECTION_UP);
+    		ship.move(Ship.DIRECTION_UP);
         }
     	if(Gdx.input.isKeyPressed(Keys.DOWN)) {
-    		ship.setNextDirection(Ship.DIRECTION_DOWN);
+    		//ship.setNextDirection(Ship.DIRECTION_DOWN);
+    		ship.move(Ship.DIRECTION_DOWN);
         }
     	if(Gdx.input.isKeyPressed(Keys.LEFT)) {
-    		ship.setNextDirection(Ship.DIRECTION_LEFT);
+    		//ship.setNextDirection(Ship.DIRECTION_LEFT);
+    		ship.move(Ship.DIRECTION_LEFT);
         }
     	if(Gdx.input.isKeyPressed(Keys.RIGHT)) {
-    		ship.setNextDirection(Ship.DIRECTION_RIGHT);
+    		//ship.setNextDirection(Ship.DIRECTION_RIGHT);
+    		ship.move(Ship.DIRECTION_RIGHT);
         }
     }
     
     private void updateAction() {
+    	BulletQue bulletQue = world.getBulletQue();
+    	Ship ship = world.getShip();
     	if(Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-    		world.createBullet();
+    		bulletQue.createBullet(ship.getPosition().x + 90,ship.getPosition().y + 35);
     	}
     }
 }

@@ -65,8 +65,8 @@ public class Ship {
 		    return position;    
 		 }
 	 public void update() {
-		 currentDirection = nextDirection; 
+		 /*currentDirection = nextDirection; 
 	     position.x += SPEED * DIR_DIFF[currentDirection][0];
-	     position.y += SPEED * DIR_DIFF[currentDirection][1];
+	     position.y += SPEED * DIR_DIFF[currentDirection][1];*/
 	 }
 }
