@@ -8,7 +8,7 @@ public class Bullet {
 	public Texture bulletImg;
 	private Bullet bullet;
 	private Vector2 position;
-	private int speed =  5;
+	private int speed = 10;
 	public Bullet(float x,float y) {
 		position = new Vector2(x,y);
 	}

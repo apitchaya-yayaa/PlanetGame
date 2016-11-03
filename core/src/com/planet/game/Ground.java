@@ -12,4 +12,9 @@ public class Ground {
 	public Vector2 getPosition() {
 		return position;
 	}
+	
+	public void setPosition(float x,float y) {
+		position.x = x;
+		position.y = y;
+	}
 }

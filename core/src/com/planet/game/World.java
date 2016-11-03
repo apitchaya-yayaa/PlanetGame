@@ -1,17 +1,19 @@
 package com.planet.game;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
+
 public class World {
 	private Ship ship;
     private PlanetGame planetGame;
     private BulletQue bulletQue = new BulletQue();
     int TopBullet = 0;
     private Ground ground1,ground2;
-    
+  
     World(PlanetGame planetGame) {
     	ship = new Ship(60,60,this);
         this.planetGame = planetGame;
         ground1 = new Ground(-140,0);
-        
+        ground2 = new Ground(610,0);
     }
     
     public Ground getGround1() {

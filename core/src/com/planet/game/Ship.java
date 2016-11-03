@@ -18,7 +18,7 @@ public class Ship {
     public static final int DIRECTION_DOWN = 3;
     public static final int DIRECTION_LEFT = 4;
     public static final int DIRECTION_STILL = 0;
-    public static final int SPEED = 5;
+    public static final int SPEED = 3;
     private int currentDirection;
     private int nextDirection;
     private World world;
