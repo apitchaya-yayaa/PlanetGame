@@ -8,12 +8,14 @@ public class World {
     private BulletQue bulletQue = new BulletQue();
     int TopBullet = 0;
     private Ground ground1,ground2;
+    private Enemy enemy1;
   
     World(PlanetGame planetGame) {
     	ship = new Ship(60,60,this);
         this.planetGame = planetGame;
         ground1 = new Ground(-140,0);
         ground2 = new Ground(610,0);
+        enemy1 = new Enemy(800,400,this);
     }
     
     public Ground getGround1() {
@@ -26,6 +28,10 @@ public class World {
     
     public Ship getShip() {
         return ship;
+    }
+    
+    public Enemy getEnemy() {
+    	return enemy1;
     }
     
     public int getTopBullet() {

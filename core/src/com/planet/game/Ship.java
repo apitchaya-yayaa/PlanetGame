@@ -46,16 +46,6 @@ public class Ship {
 		 return nextDirection;
 	 }
 	 
-	 public void render(float delta) {
-	    	update();
-	    	Gdx.gl.glClearColor(0, 0, 0, 1);
-	        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-	        SpriteBatch batch = planetGame.batch;
-			batch.begin();
-			batch.draw(shipImg,100 ,100 );
-		    batch.end();
-	    }
-	 
 	 public void move(int dir) { 
 	        position.x += SPEED * DIR_DIFF[dir][0];
 	        position.y += SPEED * DIR_DIFF[dir][1];
