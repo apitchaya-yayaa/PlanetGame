@@ -133,6 +133,20 @@ public class WorldRenderer {
 //		if(enemy1.getPosition().x - camera.position.x <= enemyGab) {
 //			enemy1.setPositionX(camera.position.x+enemyGab);
 //		}
+		for(int j=enemyQue.getFront();;j++){
+        	int k = enemyQue.getRear();
+        	if(j==EnemyQue.sizeOfQue) {
+        		j=-1;
+       		}
+       		else if(j == k) {
+       			break;
+       		}
+       		else {
+       			if(enemyQue.getEnemyAt(j).getPosition().x - camera.position.x <= enemyGab) {
+       				enemyQue.getEnemyAt(j).setPositionX(camera.position.x+enemyGab);
+       			}
+       		}
+		}
 	}
 	
 }
