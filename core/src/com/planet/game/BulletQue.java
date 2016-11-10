@@ -5,6 +5,11 @@ public class BulletQue {
 	private Bullet[] bullets = new Bullet[sizeOfQue];
 	private int front = 0;
 	private int rear = 0;
+	World world;
+	
+	public BulletQue(World world) {
+		this.world = world;
+	}
 	
 	public void insert(Bullet bullet) {
 		bullets[rear] = bullet;
@@ -31,7 +36,7 @@ public class BulletQue {
 	}
 	
 	public void createBullet(float x,float y) {
-		Bullet bullet = new Bullet(x,y);
+		Bullet bullet = new Bullet(x,y,world);
 		insert(bullet);
 	}
 	

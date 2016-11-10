@@ -12,7 +12,7 @@ public class Enemy {
 	public Texture enemyImg;
 	private Enemy enemy1;
 	private Vector2 position;
-	private int speed = 2;
+	private int speed = 3;
 	private int health = 2;
 	private BulletQue bulletQue;
 	

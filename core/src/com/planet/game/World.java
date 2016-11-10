@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 public class World {
 	private Ship ship;
     private PlanetGame planetGame;
-    private BulletQue bulletQue = new BulletQue();
+    private BulletQue bulletQue = new BulletQue(this);
     int TopBullet = 0;
     private Ground ground1,ground2;
 //    private Enemy enemy1;

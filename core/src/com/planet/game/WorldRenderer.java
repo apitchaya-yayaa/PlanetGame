@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.planet.game.Bullet.STATE;
 
 public class WorldRenderer {
 	public static PlanetGame planetGame;
@@ -22,10 +23,12 @@ public class WorldRenderer {
 	private Ground ground1,ground2;
 	private OrthographicCamera camera;
 	private Ground defaultground;
-	static int cameraspeed = 2;
+	static int cameraspeed = 1;
 //	Enemy enemy1;
-	private static int enemyGab = 200;
+	private static int enemyGab = 150;
 	private EnemyQue enemyQue;
+	private STATE stateBullet;
+	private Bullet bullet;
 	
 	public WorldRenderer(PlanetGame planetGame, World world) {
         this.planetGame = planetGame;
@@ -45,6 +48,7 @@ public class WorldRenderer {
         camera.setToOrtho(false,800,600);
         defaultground = world.getGround1();
         enemyQue = world.getEnemyQue();
+       
     }
 	
 	public void render(float delta) {

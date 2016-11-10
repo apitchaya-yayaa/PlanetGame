@@ -10,12 +10,16 @@ public class Bullet {
 	private EnemyQue enemyQue;
 	private Vector2 position;
 	private int speed = 10;
-	
+	private Texture enemyImg;
+	World world;
 	private STATE state;
 	enum STATE {ON,OFF};
 	
-	public Bullet(float x,float y) {
+	public Bullet(float x,float y,World world) {
 		position = new Vector2(x,y);
+		state = STATE.ON;
+		this.world = world;  
+		enemyQue = world.getEnemyQue();
 	}
 	
 	public Vector2 getPosition() {
@@ -24,11 +28,16 @@ public class Bullet {
 	
 	public void update() {
 		move();
+		checkEnemy();
 		
 	}
 	
 	public void move() {
 		position.x += speed;
+	}
+	
+	public STATE getState() {
+		return state;
 	}
 	
 	public void checkEnemy() {
@@ -41,8 +50,15 @@ public class Bullet {
        			break;
        		else {
        			if(state == STATE.ON) {
-       				if(position.x >= enemyQue.getEnemyAt(j).getPosition().x && position.x < enemyQue.getEnemyAt(j).getPosition().x) {
-       					
+//       				System.out.println("AA");
+       				enemyImg = enemyQue.getEnemyAt(j).getImg();
+       				double Width = enemyImg.getWidth();
+       				double Height = enemyImg.getHeight();		
+       				if(position.x >= enemyQue.getEnemyAt(j).getPosition().x && position.x < enemyQue.getEnemyAt(j).getPosition().x + Width) {
+       					if(position.y >= enemyQue.getEnemyAt(j).getPosition().y && position.y < enemyQue.getEnemyAt(j).getPosition().y + Height) {
+//       						System.out.println("hello");
+       							state = STATE.OFF;
+       					}
        				}
        			}
        		}
