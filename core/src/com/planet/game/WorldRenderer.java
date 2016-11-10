@@ -23,8 +23,9 @@ public class WorldRenderer {
 	private OrthographicCamera camera;
 	private Ground defaultground;
 	static int cameraspeed = 2;
-	Enemy enemy1;
+//	Enemy enemy1;
 	private static int enemyGab = 200;
+	private EnemyQue enemyQue;
 	
 	public WorldRenderer(PlanetGame planetGame, World world) {
         this.planetGame = planetGame;
@@ -39,10 +40,11 @@ public class WorldRenderer {
         ground2 = world.getGround2();
         groundImg = new Texture("groundmove.png");
         enemy1Img = new Texture("enemy1.png");
-        enemy1 = world.getEnemy();
+//        enemy1 = world.getEnemy();
         camera = new OrthographicCamera();
         camera.setToOrtho(false,800,600);
         defaultground = world.getGround1();
+        enemyQue = world.getEnemyQue();
     }
 	
 	public void render(float delta) {
@@ -62,7 +64,7 @@ public class WorldRenderer {
         batch.draw(bgImg,camera.position.x - 400,camera.position.y - 300);
         batch.draw(groundImg,ground2.getPosition().x ,ground2.getPosition().y);
         batch.draw(groundImg,ground1.getPosition().x , ground1.getPosition().y);
-        batch.draw(enemy1Img,enemy1.getPosition().x,enemy1.getPosition().y);
+//        batch.draw(enemy1Img,enemy1.getPosition().x,enemy1.getPosition().y);
         batch.draw(shipImg,ship.getPosition().x, ship.getPosition().y);
         for(int j=bulletQue.getFront();;j++){
         	int k = bulletQue.getRear();
@@ -75,7 +77,23 @@ public class WorldRenderer {
        			batch.draw(bulletImg,bulletQue.getBulletAt(j).getPosition().x,bulletQue.getBulletAt(j).getPosition().y);
        	}
         batch.end();       
+        drawEnemyInQue(batch);
     }
+	
+	private void drawEnemyInQue(SpriteBatch batch) {
+		batch.begin();
+		for(int j=enemyQue.getFront();;j++){
+        	int k = enemyQue.getRear();
+        	if(j==EnemyQue.sizeOfQue) {
+        		j=-1;
+       		}
+       		else if(j == k)
+       			break;
+       		else
+       			batch.draw(enemy1Img,enemyQue.getEnemyAt(j).getPosition().x,enemyQue.getEnemyAt(j).getPosition().y);
+       	}
+		batch.end();
+	}
 	
 	public OrthographicCamera getCamera() {
 		return camera;
@@ -112,9 +130,9 @@ public class WorldRenderer {
 	}
 	
 	public void checkEnemy() {
-		if(enemy1.getPosition().x - camera.position.x <= enemyGab) {
-			enemy1.setPositionX(camera.position.x+enemyGab);
-		}
+//		if(enemy1.getPosition().x - camera.position.x <= enemyGab) {
+//			enemy1.setPositionX(camera.position.x+enemyGab);
+//		}
 	}
 	
 }
