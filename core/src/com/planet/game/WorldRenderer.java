@@ -39,7 +39,7 @@ public class WorldRenderer {
         ground1 = world.getGround1();
         ground2 = world.getGround2();
         groundImg = new Texture("groundmove.png");
-        enemy1Img = new Texture("enemy1.png");
+//        enemy1Img = new Texture("enemy1.png");
 //        enemy1 = world.getEnemy();
         camera = new OrthographicCamera();
         camera.setToOrtho(false,800,600);
@@ -89,8 +89,10 @@ public class WorldRenderer {
        		}
        		else if(j == k)
        			break;
-       		else
-       			batch.draw(enemy1Img,enemyQue.getEnemyAt(j).getPosition().x,enemyQue.getEnemyAt(j).getPosition().y);
+       		else {
+       			Texture IMG = enemyQue.getEnemyAt(j).getImg();
+       			batch.draw(IMG,enemyQue.getEnemyAt(j).getPosition().x,enemyQue.getEnemyAt(j).getPosition().y);
+       		}
        	}
 		batch.end();
 	}

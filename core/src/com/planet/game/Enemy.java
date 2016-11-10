@@ -9,16 +9,17 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Enemy {
 	public PlanetGame planetGame;
-	public Texture enemy1Img;
+	public Texture enemyImg;
 	private Enemy enemy1;
 	private Vector2 position;
 	private int speed = 2;
 	private int health = 2;
 	private BulletQue bulletQue;
 	
-	public Enemy(float x, float y,World world) {
+	public Enemy(float x, float y,World world,Texture Img) {
 		position = new Vector2(x,y);
 		bulletQue = world.getBulletQue();
+		enemyImg = Img; 
 	}    
 	
 	public void move() {
@@ -31,5 +32,9 @@ public class Enemy {
 	
 	public void setPositionX(float x) {
 		position.x = x;
+	}
+	
+	public Texture getImg() {
+		return enemyImg;
 	}
 }

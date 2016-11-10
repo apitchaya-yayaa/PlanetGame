@@ -1,10 +1,13 @@
 package com.planet.game;
 
+import com.badlogic.gdx.graphics.Texture;
+
 public class EnemyQue {
 	public static final int sizeOfQue = 50;
 	private Enemy[] enemies = new Enemy[sizeOfQue];
 	private int front = 0;
 	private int rear = 0;
+	public static final Texture enemy1Img = new Texture("enemy1.png");
 	
 	public void insert(Enemy enemy) {
 		enemies[rear] = enemy;
@@ -31,7 +34,7 @@ public class EnemyQue {
 	}
 	
 	public void createEnemy(float x,float y, World world) {
-		Enemy enemy = new Enemy(x,y, world);
+		Enemy enemy = new Enemy(x,y, world, enemy1Img);
 		insert(enemy);
 	}
 	
