@@ -5,8 +5,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.planet.game.Bullet.STATE;
+import java.util.Iterator;
 
 public class WorldRenderer {
 	public static PlanetGame planetGame;
@@ -29,6 +32,9 @@ public class WorldRenderer {
 	private EnemyQue enemyQue;
 	private STATE stateBullet;
 	private Bullet bullet;
+	Rectangle bullets;
+	Array<Rectangle> bulletArray;
+	Rectangle enemy;
 	
 	public WorldRenderer(PlanetGame planetGame, World world) {
         this.planetGame = planetGame;
@@ -48,7 +54,11 @@ public class WorldRenderer {
         camera.setToOrtho(false,800,600);
         defaultground = world.getGround1();
         enemyQue = world.getEnemyQue();
-       
+        bulletArray = new Array<Rectangle>();
+        bullets = new Rectangle();
+        enemy = new Rectangle();
+//        stateBullet = Bullet.getState(); 
+        
     }
 	
 	public void render(float delta) {
@@ -82,7 +92,25 @@ public class WorldRenderer {
        	}
         batch.end();       
         drawEnemyInQue(batch);
+//        update();
     }
+	
+//	private void update() {
+//		Iterator <Rectangle> iter_bullet = bulletArray.iterator();
+//		while(iter_bullet.hasNext()) {
+//		    Rectangle bullets = iter_bullet.next();
+//		    bullets.y -= 200 * Gdx.graphics.getDeltaTime();
+//		    if(bullets.y + 64 < 0) iter_bullet.remove();
+//		}
+//		batch.begin();
+//		for(Rectangle bullets: bulletArray) {
+//		    batch.draw(bulletImg, bullets.x, bullets.y);
+//		}
+//		batch.end();
+//		if(bullets.overlaps(enemy)) {
+//		    iter_bullet.remove();
+//		}
+//	}
 	
 	private void drawEnemyInQue(SpriteBatch batch) {
 		batch.begin();

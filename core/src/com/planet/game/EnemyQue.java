@@ -1,6 +1,7 @@
 package com.planet.game;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 
 public class EnemyQue {
 	public static final int sizeOfQue = 50;

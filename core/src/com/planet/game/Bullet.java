@@ -1,9 +1,11 @@
 package com.planet.game;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.*;;
 
-public class Bullet {
+public class Bullet implements Disposable  {
 	public PlanetGame planetGame;
 	public Texture bulletImg;
 	private BulletQue bulletQue;
@@ -14,12 +16,15 @@ public class Bullet {
 	World world;
 	private STATE state;
 	enum STATE {ON,OFF};
+	Rectangle bullet;
+	
 	
 	public Bullet(float x,float y,World world) {
 		position = new Vector2(x,y);
 		state = STATE.ON;
 		this.world = world;  
 		enemyQue = world.getEnemyQue();
+		bullet = new Rectangle();
 	}
 	
 	public Vector2 getPosition() {
@@ -63,5 +68,10 @@ public class Bullet {
        			}
        		}
 		}	
+	}
+	
+	@Override
+	public void dispose () {
+		this.dispose();
 	}
 }

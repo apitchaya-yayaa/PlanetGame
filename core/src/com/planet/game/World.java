@@ -1,6 +1,7 @@
 package com.planet.game;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.planet.game.Bullet.STATE;
 
 public class World {
 	private Ship ship;
@@ -10,6 +11,7 @@ public class World {
     private Ground ground1,ground2;
 //    private Enemy enemy1;
     private EnemyQue enemyQue;
+    private STATE stateBullet;
   
     World(PlanetGame planetGame) {
     	ship = new Ship(60,60,this);
