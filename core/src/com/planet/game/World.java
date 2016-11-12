@@ -1,6 +1,8 @@
 package com.planet.game;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 import com.planet.game.Bullet.STATE;
 
 public class World {
@@ -61,9 +63,22 @@ public class World {
        		else {
        			bulletQue.getBulletAt(j).update();
        		}
-//        	bulletQue.getBulletAt(j).checkEnemy();
        	}   
         bulletQue.checkAllBullet();
+        for(int j=enemyQue.getFront();;j++){
+        	int k = enemyQue.getRear();
+        	if(j==EnemyQue.sizeOfQue) {
+        		j=-1;
+       		}
+       		else if(j == k)
+       			break;
+       		else {
+       			Enemy enemy = enemyQue.getEnemyAt(j);
+       			if(enemy.getState() == Enemy.STATE.LIVE) {
+           			enemy.update();
+       			}
+       		}
+        }
     }
     
     public BulletQue getBulletQue() {

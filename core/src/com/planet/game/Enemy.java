@@ -39,6 +39,12 @@ public class Enemy {
 //	    enemyRectangle.height = enemyImg.getHeight();
 //	}
 	
+	public void update() {
+		if(health <= 0) {
+			this.state = STATE.DIE;
+		}
+	}
+	
 	public void move() {
 		position.x -= speed;
 	}
@@ -69,5 +75,9 @@ public class Enemy {
 	
 	public STATE getState() {
 		return state;
+	}
+	
+	public void getInjured() {
+		health--;
 	}
 }

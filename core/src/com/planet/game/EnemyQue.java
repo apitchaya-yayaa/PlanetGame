@@ -17,7 +17,7 @@ public class EnemyQue {
 			
 			@Override
 			public void notifyHitEnemy(int j) {
-				enemies[j].setState(STATE.DIE);
+				enemies[j].getInjured();
 				
 			}
 		});
