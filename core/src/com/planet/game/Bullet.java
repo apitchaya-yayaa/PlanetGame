@@ -22,21 +22,21 @@ public class Bullet implements Disposable  {
 	
 	Rectangle bulletRectangle;
 	
-	public interface hitEnemyListener {
-		void notifyHitEnemy(int j);
-	}
-	
-	private LinkedList<hitEnemyListener> hitEnemyListeners;
-	
-	public void registerHitEnemyListener(hitEnemyListener l){
-		hitEnemyListeners.add(l);
-	}
-	
-	private void notifyHitEnemyListener(int j) {
-		for(hitEnemyListener l : hitEnemyListeners) {
-			l.notifyHitEnemy(j);
-		}
-	}
+//	public interface hitEnemyListener {
+//		void notifyHitEnemy(int j);
+//	}
+//	
+//	private LinkedList<hitEnemyListener> hitEnemyListeners;
+//	
+//	public void registerHitEnemyListener(hitEnemyListener l){
+//		hitEnemyListeners.add(l);
+//	}
+//	
+//	private void notifyHitEnemyListener(int j) {
+//		for(hitEnemyListener l : hitEnemyListeners) {
+//			l.notifyHitEnemy(j);
+//		}
+//	}
 	
 	
 	public Bullet(float x,float y,World world) {
@@ -46,7 +46,7 @@ public class Bullet implements Disposable  {
 		enemyQue = world.getEnemyQue();
 		bulletRectangle = new Rectangle();
 		bulletRectangle.setSize(bulletImg.getWidth(), bulletImg.getHeight());
-		hitEnemyListeners = new LinkedList<hitEnemyListener>();
+//		hitEnemyListeners = new LinkedList<hitEnemyListener>();
 	}
 	
 	public Vector2 getPosition() {
@@ -73,34 +73,38 @@ public class Bullet implements Disposable  {
 		return bulletRectangle;
 	}
 	
-	public void checkEnemy() {
-		for(int j=enemyQue.getFront();;j++){
-        	int k = enemyQue.getRear();
-        	if(j==EnemyQue.sizeOfQue) {
-        		j=-1;
-       		}
-       		else if(j == k)
-       			break;
-       		else {
-       			if(state == STATE.ON) {
-//       				System.out.println("AA");
-       				enemyImg = enemyQue.getEnemyAt(j).getImg();
-       				double Width = enemyImg.getWidth();
-       				double Height = enemyImg.getHeight();		
-       				if(position.x >= enemyQue.getEnemyAt(j).getPosition().x && position.x < enemyQue.getEnemyAt(j).getPosition().x + Width) {
-       					if(position.y >= enemyQue.getEnemyAt(j).getPosition().y && position.y < enemyQue.getEnemyAt(j).getPosition().y + Height) {
-//       						System.out.println("hello");
-       							state = STATE.OFF;
-       							notifyHitEnemyListener(j);
-       					}
-       				}
-       			}
-       		}
-		}	
-	}
+//	public void checkEnemy() {
+//		for(int j=enemyQue.getFront();;j++){
+//        	int k = enemyQue.getRear();
+//        	if(j==EnemyQue.sizeOfQue) {
+//        		j=-1;
+//       		}
+//       		else if(j == k)
+//       			break;
+//       		else {
+//       			if(state == STATE.ON) {
+////       				System.out.println("AA");
+//       				enemyImg = enemyQue.getEnemyAt(j).getImg();
+//       				double Width = enemyImg.getWidth();
+//       				double Height = enemyImg.getHeight();		
+//       				if(position.x >= enemyQue.getEnemyAt(j).getPosition().x && position.x < enemyQue.getEnemyAt(j).getPosition().x + Width) {
+//       					if(position.y >= enemyQue.getEnemyAt(j).getPosition().y && position.y < enemyQue.getEnemyAt(j).getPosition().y + Height) {
+////       						System.out.println("hello");
+//       							state = STATE.OFF;
+//       							notifyHitEnemyListener(j);
+//       					}
+//       				}
+//       			}
+//       		}
+//		}	
+//	}
 	
 	@Override
 	public void dispose () {
 		this.dispose();
+	}
+	
+	public void setState(STATE state) {
+		this.state = state;
 	}
 }

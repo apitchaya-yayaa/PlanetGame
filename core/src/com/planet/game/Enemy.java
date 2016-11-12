@@ -19,6 +19,9 @@ public class Enemy {
 	private int health = 2;
 	private BulletQue bulletQue;
 	Rectangle enemyRectangle;
+	STATE state;
+	
+	enum STATE {LIVE, DIE};
 	
 	public Enemy(float x, float y,World world,Texture Img) {
 		position = new Vector2(x,y);
@@ -26,6 +29,7 @@ public class Enemy {
 		enemyImg = Img; 
 		enemyRectangle = new Rectangle();
 		enemyRectangle.setSize(enemyImg.getWidth(), enemyImg.getHeight());
+		this.state = STATE.LIVE;
 		
 	}    
 //	public void EnemyArray() {
@@ -57,5 +61,13 @@ public class Enemy {
 	
 	public void setRectCenter(float x, float y) {
 		enemyRectangle.setCenter(x, y);
+	}
+	
+	public void setState(STATE state) {
+		this.state = state;
+	}
+	
+	public STATE getState() {
+		return state;
 	}
 }

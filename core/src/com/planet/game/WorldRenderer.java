@@ -19,6 +19,7 @@ public class WorldRenderer {
 	private static SpriteBatch batch; 
 	private static Texture shipImg;
 	private static Texture bulletImg;
+	private static Texture bulletEnemyImg;
 	private Texture bgImg;
 	private Texture groundImg;
 	private Texture enemy1Img;
@@ -46,6 +47,7 @@ public class WorldRenderer {
         this.world = world;
         shipImg = new Texture("ship.png");
         bulletImg = new Texture("bullet.png");
+        bulletEnemyImg = new Texture ("bulletenemy.png");
         ship = world.getShip();
         bulletQue = world.getBulletQue();
         bgImg = new Texture("bgstop.png");
@@ -101,8 +103,8 @@ public class WorldRenderer {
        	}
         batch.end();  
         drawEnemyInQue(batch);
-        shapeRectangleEnemy();
-        shapeRectangleBullet();
+//        shapeRectangleEnemy();
+//        shapeRectangleBullet();
         //update();
     }
 	
@@ -133,10 +135,13 @@ public class WorldRenderer {
        		else if(j == k)
        			break;
        		else {
-       			Texture IMG = enemyQue.getEnemyAt(j).getImg();
-       			batch.draw(IMG,enemyQue.getEnemyAt(j).getPosition().x,enemyQue.getEnemyAt(j).getPosition().y);
-       			Vector2 enemyPos = enemyQue.getEnemyAt(j).getPosition();
-   				enemyQue.getEnemyAt(j).setRectCenter(enemyPos.x + IMG.getWidth() / 2, enemyPos.y + IMG.getHeight() / 2);
+       			Enemy enemy = enemyQue.getEnemyAt(j);
+       			if(enemy.getState() == Enemy.STATE.LIVE) {
+           			Texture IMG = enemyQue.getEnemyAt(j).getImg();
+           			batch.draw(IMG,enemyQue.getEnemyAt(j).getPosition().x,enemyQue.getEnemyAt(j).getPosition().y);
+           			Vector2 enemyPos = enemyQue.getEnemyAt(j).getPosition();
+       				enemyQue.getEnemyAt(j).setRectCenter(enemyPos.x + IMG.getWidth() / 2, enemyPos.y + IMG.getHeight() / 2);
+       			}
        		}
        	}
 		batch.end();
@@ -208,9 +213,12 @@ public class WorldRenderer {
        		else if(j == k)
        			break;
        		else {
-       			Texture IMG = enemyQue.getEnemyAt(j).getImg();
-       			Rectangle enemyRect = enemyQue.getEnemyAt(j).getRectangle();
-       			shapeRenderer.rect(enemyRect.x, enemyRect.y, enemyRect.getWidth(), enemyRect.getHeight());
+       			Enemy enemy = enemyQue.getEnemyAt(j);
+       			if(enemy.getState() == Enemy.STATE.LIVE) {
+           			Texture IMG = enemyQue.getEnemyAt(j).getImg();
+           			Rectangle enemyRect = enemyQue.getEnemyAt(j).getRectangle();
+           			shapeRenderer.rect(enemyRect.x, enemyRect.y, enemyRect.getWidth(), enemyRect.getHeight());
+       			}
        		}
        	}
         shapeRenderer.end();

@@ -2,6 +2,7 @@ package com.planet.game;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
+import com.planet.game.Enemy.STATE;
 
 public class EnemyQue {
 	public static final int sizeOfQue = 50;
@@ -12,11 +13,19 @@ public class EnemyQue {
 	public static final Texture enemy1Img = new Texture("enemy1.png");
 	
 	public void registerHitEnemyListener() {
-		
+		bulletQue.registerHitEnemyListener(new BulletQue.hitEnemyListener() {
+			
+			@Override
+			public void notifyHitEnemy(int j) {
+				enemies[j].setState(STATE.DIE);
+				
+			}
+		});
 	}
 	
 	public EnemyQue (BulletQue bulletQue) {
 		this.bulletQue = bulletQue;
+		registerHitEnemyListener();
 	}
 	
 	public void insert(Enemy enemy) {

@@ -1,14 +1,42 @@
 package com.planet.game;
 
+import java.util.LinkedList;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
+import com.planet.game.Bullet.STATE;
+
 public class BulletQue {
 	public static final int sizeOfQue = 50;
 	private Bullet[] bullets = new Bullet[sizeOfQue];
 	private int front = 0;
 	private int rear = 0;
 	World world;
+	EnemyQue enemyQue;
+	
+	public interface hitEnemyListener {
+		void notifyHitEnemy(int j);
+	}
+	
+	private LinkedList<hitEnemyListener> hitEnemyListeners;
+	
+	public void registerHitEnemyListener(hitEnemyListener l){
+		hitEnemyListeners.add(l);
+	}
+	
+	private void notifyHitEnemyListener(int j) {
+		for(hitEnemyListener l : hitEnemyListeners) {
+			l.notifyHitEnemy(j);
+		}
+	}
 	
 	public BulletQue(World world) {
 		this.world = world;
+		hitEnemyListeners = new LinkedList<hitEnemyListener>();
+	}
+	
+	public void initVariable (EnemyQue enemyQue) {
+		this.enemyQue = enemyQue;
 	}
 	
 	public void insert(Bullet bullet) {
@@ -52,5 +80,46 @@ public class BulletQue {
 		return bullets[i];
 	}
 	
+	public void checkAllBullet() {
+		for(int j=getFront();;j++){
+        	int k = getRear();
+        	if(j==BulletQue.sizeOfQue) {
+       			j=-1;
+       		}
+       		else if(j == k)
+       			break;
+       		else {
+       			checkEnemy(j);
+       		}
+//        	bulletQue.getBulletAt(j).checkEnemy();
+       	}   
+	}
 	
+	public void checkEnemy(int i) {
+		Bullet bullet = getBulletAt(i);
+		for(int j=enemyQue.getFront();;j++){
+        	int k = enemyQue.getRear();
+        	if(j==EnemyQue.sizeOfQue) {
+        		j=-1;
+       		}
+       		else if(j == k)
+       			break;
+       		else {
+       			if(bullet.getState() == STATE.ON) {
+//       				System.out.println("AA");
+       				Texture enemyImg = enemyQue.getEnemyAt(j).getImg();
+       				double Width = enemyImg.getWidth();
+       				double Height = enemyImg.getHeight();
+       				Vector2 bulletPos = bullet.getPosition();
+       				if(bulletPos.x >= enemyQue.getEnemyAt(j).getPosition().x && bulletPos.x < enemyQue.getEnemyAt(j).getPosition().x + Width) {
+       					if(bulletPos.y >= enemyQue.getEnemyAt(j).getPosition().y && bulletPos.y < enemyQue.getEnemyAt(j).getPosition().y + Height) {
+//       						System.out.println("hello");
+       							bullet.setState(STATE.OFF);
+       							notifyHitEnemyListener(j);
+       					}
+       				}
+       			}
+       		}
+		}	
+	}
 }

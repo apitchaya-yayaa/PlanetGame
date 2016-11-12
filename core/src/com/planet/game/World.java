@@ -22,7 +22,7 @@ public class World {
         bulletQue = new BulletQue(this);
         enemyQue = new EnemyQue(bulletQue);
         enemyQue.createEnemy(800, 400, this);
-        
+        bulletQue.initVariable(enemyQue);
     }
     
     public Ground getGround1() {
@@ -61,8 +61,9 @@ public class World {
        		else {
        			bulletQue.getBulletAt(j).update();
        		}
-        	bulletQue.getBulletAt(j).checkEnemy();
+//        	bulletQue.getBulletAt(j).checkEnemy();
        	}   
+        bulletQue.checkAllBullet();
     }
     
     public BulletQue getBulletQue() {
