@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.planet.game.Enemy.STATE;
 
 public class Ship {
 	public PlanetGame planetGame;
@@ -22,12 +24,18 @@ public class Ship {
     private int currentDirection;
     private int nextDirection;
     private World world;
+    private Circle shipCircle;
+    STATE state;
+    enum STATE {LIVE,DIE};
     
 	public Ship(int x, int y, World world) {
 		position = new Vector2(x,y);
+		shipImg = new Texture("ship.png");
 		currentDirection = DIRECTION_STILL;
 	    nextDirection = DIRECTION_STILL;
 	    this.world = world;
+	    shipCircle = new Circle();
+	    this.state = STATE.LIVE;
 	}    
 	
 	 private static final int [][] DIR_DIFF = new int [][] {
@@ -60,8 +68,10 @@ public class Ship {
 		}
 	 
 	 public void update() {
-		 /*currentDirection = nextDirection; 
-	     position.x += SPEED * DIR_DIFF[currentDirection][0];
-	     position.y += SPEED * DIR_DIFF[currentDirection][1];*/
+		 shipCircle.set(position.x + shipImg.getWidth() / 2, position.y + shipImg.getHeight() / 2, shipImg.getWidth() / 2);
+	 }
+	 
+	 public Circle getShipCircle() {
+		 return shipCircle;
 	 }
 }

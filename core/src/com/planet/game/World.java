@@ -2,6 +2,7 @@ package com.planet.game;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.planet.game.Bullet.STATE;
 
@@ -15,6 +16,9 @@ public class World {
     private EnemyQue enemyQue;
     private STATE stateBullet;
     private BulletEnemyQue bulletEnemyQue;
+    private int min = 300;
+	private int max = 580;
+	private int randomy;
   
     World(PlanetGame planetGame) {
     	ship = new Ship(60,60,this);
@@ -24,9 +28,10 @@ public class World {
 //        enemy1 = new Enemy(800,400,this);
         bulletQue = new BulletQue(this);
         enemyQue = new EnemyQue(bulletQue);
-        enemyQue.createEnemy(800, 400, this);
+        enemyQue.createEnemy(800,350, this);
         bulletQue.initVariable(enemyQue);
         bulletEnemyQue = new BulletEnemyQue(this);
+//        randomy = (int) Math.round((Math.random() * (max - min)) + min);
     }
     
     public Ground getGround1() {
@@ -100,7 +105,6 @@ public class World {
         			else if(ship.getPosition().y < enemyQue.getEnemyAt(i).getPosition().y) {
         				enemyQue.getEnemyAt(i).getPosition().y -= 1;
         			}
-        			
         		}
          }
     }

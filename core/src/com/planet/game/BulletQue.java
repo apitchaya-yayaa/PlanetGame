@@ -109,6 +109,7 @@ public class BulletQue {
        			if(bullet.getState() == STATE.ON) {
 //       				System.out.println("AA");
        				Texture enemyImg = enemyQue.getEnemyAt(j).getImg();
+       				Enemy enemy = enemyQue.getEnemyAt(j);
        				double Width = enemyImg.getWidth();
        				double Height = enemyImg.getHeight();
        				Vector2 bulletPos = bullet.getPosition();
@@ -117,10 +118,13 @@ public class BulletQue {
 //       						System.out.println("hello");
        							bullet.setState(STATE.OFF);
        							notifyHitEnemyListener(j);
+       							if(enemy.getState() == Enemy.STATE.DIE) {
+       								bullet.setState(STATE.ON);
+       							}
        					}
        				}
        			}
        		}
-		}	
+		}
 	}
 }

@@ -87,7 +87,19 @@ public class WorldRenderer {
         batch.draw(groundImg,ground1.getPosition().x , ground1.getPosition().y);
 //        batch.draw(enemy1Img,enemy1.getPosition().x,enemy1.getPosition().y);
         batch.draw(shipImg,ship.getPosition().x, ship.getPosition().y);
-        for(int j=bulletQue.getFront();;j++){
+        batch.end();  
+        drawBullet(batch);
+        drawEnemyInQue(batch);
+        drawBulletEnemy(batch);
+        RenderBulletEnemy();
+//        shapeRectangleEnemy();
+//        shapeRectangleBullet();
+        shapeCircleShip();
+    }
+	
+	private void drawBullet(SpriteBatch batch) {
+		batch.begin();
+		for(int j=bulletQue.getFront();;j++){
         	int k = bulletQue.getRear();
         	if(j==BulletQue.sizeOfQue) {
         		j=-1;
@@ -101,29 +113,7 @@ public class WorldRenderer {
        			}
        		}
        	}
-        batch.end();  
-        drawEnemyInQue(batch);
-        drawBulletEnemy(batch);
-//        shapeRectangleEnemy();
-//        shapeRectangleBullet();
-        //update();
-    }
-	
-	private void update() {
-		Iterator <Rectangle> iter_bullet = bulletArray.iterator();
-//		while(iter_bullet.hasNext()) {
-//		    Rectangle bullets = iter_bullet.next();
-//		    bullets.y -= 200 * Gdx.graphics.getDeltaTime();
-//		    if(bullets.y + 64 < 0) iter_bullet.remove();
-//		}
-//		batch.begin();
-//		for(Rectangle bullets: bulletArray) {
-//		    batch.draw(bulletImg, bullets.x, bullets.y);
-//		}
-//		batch.end();
-		if(bullets.overlaps(enemy)) {
-		    iter_bullet.remove();
-		}
+		batch.end();
 	}
 	
 	private void drawBulletEnemy(SpriteBatch batch) {
@@ -264,6 +254,34 @@ public class WorldRenderer {
        		}
        	}
         shapeRenderer.end();
+	}
+	
+	public void shapeCircleShip() {
+		shapeRenderer.setProjectionMatrix(camera.combined);
+        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(Color.RED);
+        shapeRenderer.circle(ship.getShipCircle().x, ship.getShipCircle().y, ship.getShipCircle().radius);
+        shapeRenderer.end();
+	}
+	
+	public void RenderBulletEnemy() {
+		for(int j=enemyQue.getFront();;j++){
+        	int k = enemyQue.getRear();
+        	if(j==EnemyQue.sizeOfQue) {
+        		j=-1;
+       		}
+       		else if(j == k)
+       			break;
+       		else {
+       			Enemy enemy = enemyQue.getEnemyAt(j);
+       			if(enemy.getLastTimeShoot() == -1 || System.currentTimeMillis() - enemy.getLastTimeShoot() >= 1000) {
+       				if(enemy.getState() != Enemy.STATE.DIE) {
+	           			bulletEnemyQue.createBullet(enemy.getPosition().x - 10 ,enemy.getPosition().y + 30);
+	           			enemy.setLastTimeShoot(System.currentTimeMillis());
+       				}
+       			}
+       		}
+       	}
 	}
 	
 }

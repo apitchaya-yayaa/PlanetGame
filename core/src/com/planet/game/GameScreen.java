@@ -66,21 +66,21 @@ public class GameScreen extends ScreenAdapter {
     	if(Gdx.input.isKeyJustPressed(Keys.SPACE)) {
     		bulletQue.createBullet(ship.getPosition().x + 90,ship.getPosition().y + 35);
     	}
-    	for(int j=enemyQue.getFront();;j++){
-        	int k = enemyQue.getRear();
-        	if(j==EnemyQue.sizeOfQue) {
-        		j=-1;
-       		}
-       		else if(j == k)
-       			break;
-       		else {
-       			Enemy enemy = enemyQue.getEnemyAt(j);
-       			if(enemy.getLastTimeShoot() == -1 || System.currentTimeMillis() - enemy.getLastTimeShoot() >= 1000) {
-           			bulletEnemyQue.createBullet(enemy.getPosition().x - 10 ,enemy.getPosition().y + 30);
-           			enemy.setLastTimeShoot(System.currentTimeMillis());
-       			}
-       		}
-       	}
+//    	for(int j=enemyQue.getFront();;j++){
+//        	int k = enemyQue.getRear();
+//        	if(j==EnemyQue.sizeOfQue) {
+//        		j=-1;
+//       		}
+//       		else if(j == k)
+//       			break;
+//       		else {
+//       			Enemy enemy = enemyQue.getEnemyAt(j);
+//       			if(enemy.getLastTimeShoot() == -1 || System.currentTimeMillis() - enemy.getLastTimeShoot() >= 1000) {
+//           			bulletEnemyQue.createBullet(enemy.getPosition().x - 10 ,enemy.getPosition().y + 30);
+//           			enemy.setLastTimeShoot(System.currentTimeMillis());
+//       			}
+//       		}
+//       	}
     	
     }
 }

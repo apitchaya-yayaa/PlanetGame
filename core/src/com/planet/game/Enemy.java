@@ -16,11 +16,15 @@ public class Enemy {
 	private Enemy enemy1;
 	private Vector2 position;
 	private int speed = 3;
-	private int health = 2;
+	private int health = 4;
 	private BulletQue bulletQue;
 	Rectangle enemyRectangle;
 	STATE state;
 	double lastTimeShoot;
+//	private int min = 300;
+//	private int max = 580;
+//	private int chance = 3;
+//	private int randomy;
 	
 	enum STATE {LIVE, DIE};
 	
