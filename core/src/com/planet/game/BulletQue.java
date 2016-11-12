@@ -51,4 +51,6 @@ public class BulletQue {
 	public Bullet getBulletAt(int i) {
 		return bullets[i];
 	}
+	
+	
 }

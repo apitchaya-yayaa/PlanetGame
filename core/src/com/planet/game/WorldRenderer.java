@@ -92,13 +92,17 @@ public class WorldRenderer {
        		}
        		else if(j == k)
        			break;
-       		else
-       			batch.draw(bulletImg,bulletQue.getBulletAt(j).getPosition().x,bulletQue.getBulletAt(j).getPosition().y);
+       		else {
+       			Bullet bullet = bulletQue.getBulletAt(j);
+       			if (bullet.getState() != Bullet.STATE.OFF) {
+       				batch.draw(bulletImg,bullet.getPosition().x,bullet.getPosition().y);
+       			}
+       		}
        	}
         batch.end();  
         drawEnemyInQue(batch);
         shapeRectangleEnemy();
-//        shapeRectangleBullet();
+        shapeRectangleBullet();
         //update();
     }
 	
@@ -212,23 +216,26 @@ public class WorldRenderer {
         shapeRenderer.end();
 	}
 	
-//	public void shapeRectangleBullet() {
-//		shapeRenderer.setProjectionMatrix(camera.combined);
-//        shapeRenderer.begin(ShapeType.Filled);
-//        shapeRenderer.setColor(Color.RED);
-//        for(int j=bulletQue.getFront();;j++){
-//        	int k = bulletQue.getRear();
-//        	if(j==EnemyQue.sizeOfQue) {
-//        		j=-1;
-//       		}
-//       		else if(j == k)
-//       			break;
-//       		else {
-//       			Rectangle bulletRect = bulletQue.getBulletAt(j).getRect();  			
-//       			shapeRenderer.rect(bulletRect.x, bulletRect.y, bulletRect.getWidth(), bulletRect.getHeight());
-//       		}
-//       	}
-//        shapeRenderer.end();
-//	}
+	public void shapeRectangleBullet() {
+		shapeRenderer.setProjectionMatrix(camera.combined);
+        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(Color.RED);
+        for(int j=bulletQue.getFront();;j++){
+        	int k = bulletQue.getRear();
+        	if(j==EnemyQue.sizeOfQue) {
+        		j=-1;
+       		}
+       		else if(j == k)
+       			break;
+       		else {
+       			Rectangle bulletRect = bulletQue.getBulletAt(j).getRect(); 
+       			Bullet bullet = bulletQue.getBulletAt(j);
+       			if (bullet.getState() != Bullet.STATE.OFF) {
+       				shapeRenderer.rect(bulletRect.x, bulletRect.y, bulletRect.getWidth(), bulletRect.getHeight());
+       			}
+       		}
+       	}
+        shapeRenderer.end();
+	}
 	
 }

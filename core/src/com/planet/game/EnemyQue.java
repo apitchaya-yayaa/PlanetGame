@@ -8,7 +8,16 @@ public class EnemyQue {
 	private Enemy[] enemies = new Enemy[sizeOfQue];
 	private int front = 0;
 	private int rear = 0;
+	private BulletQue bulletQue;
 	public static final Texture enemy1Img = new Texture("enemy1.png");
+	
+	public void registerHitEnemyListener() {
+		
+	}
+	
+	public EnemyQue (BulletQue bulletQue) {
+		this.bulletQue = bulletQue;
+	}
 	
 	public void insert(Enemy enemy) {
 		enemies[rear] = enemy;

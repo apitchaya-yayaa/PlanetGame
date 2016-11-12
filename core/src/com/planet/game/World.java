@@ -6,7 +6,7 @@ import com.planet.game.Bullet.STATE;
 public class World {
 	private Ship ship;
     private PlanetGame planetGame;
-    private BulletQue bulletQue = new BulletQue(this);
+    private BulletQue bulletQue;
     int TopBullet = 0;
     private Ground ground1,ground2;
 //    private Enemy enemy1;
@@ -19,7 +19,8 @@ public class World {
         ground1 = new Ground(-140,0);
         ground2 = new Ground(610,0);
 //        enemy1 = new Enemy(800,400,this);
-        enemyQue = new EnemyQue();
+        bulletQue = new BulletQue(this);
+        enemyQue = new EnemyQue(bulletQue);
         enemyQue.createEnemy(800, 400, this);
         
     }
@@ -57,9 +58,11 @@ public class World {
        		}
        		else if(j == k)
        			break;
-       		else
+       		else {
        			bulletQue.getBulletAt(j).update();
-       	}
+       		}
+        	bulletQue.getBulletAt(j).checkEnemy();
+       	}   
     }
     
     public BulletQue getBulletQue() {
