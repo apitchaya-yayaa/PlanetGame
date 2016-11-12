@@ -35,6 +35,7 @@ public class BulletQue {
 		hitEnemyListeners = new LinkedList<hitEnemyListener>();
 	}
 	
+	
 	public void initVariable (EnemyQue enemyQue) {
 		this.enemyQue = enemyQue;
 	}

@@ -18,14 +18,15 @@ public class WorldRenderer {
 	public static PlanetGame planetGame;
 	private static SpriteBatch batch; 
 	private static Texture shipImg;
-	private static Texture bulletImg;
-	private static Texture bulletEnemyImg;
+	private static Texture bulletImg = new Texture("bullet.png");
+	private static Texture bulletEnemyImg = new Texture ("bulletenemy.png");;
 	private Texture bgImg;
 	private Texture groundImg;
 	private Texture enemy1Img;
 	private World world;
 	Ship ship;
 	private BulletQue bulletQue;
+	private BulletEnemyQue bulletEnemyQue;
 	int TopBullet;
 	private Ground ground1,ground2;
 	private OrthographicCamera camera;
@@ -46,10 +47,9 @@ public class WorldRenderer {
         batch = planetGame.batch;
         this.world = world;
         shipImg = new Texture("ship.png");
-        bulletImg = new Texture("bullet.png");
-        bulletEnemyImg = new Texture ("bulletenemy.png");
         ship = world.getShip();
         bulletQue = world.getBulletQue();
+        bulletEnemyQue = world.getBulletEnemyQue();
         bgImg = new Texture("bgstop.png");
         ground1 = world.getGround1();
         ground2 = world.getGround2();
@@ -103,6 +103,7 @@ public class WorldRenderer {
        	}
         batch.end();  
         drawEnemyInQue(batch);
+        drawBulletEnemy(batch);
 //        shapeRectangleEnemy();
 //        shapeRectangleBullet();
         //update();
@@ -123,6 +124,25 @@ public class WorldRenderer {
 		if(bullets.overlaps(enemy)) {
 		    iter_bullet.remove();
 		}
+	}
+	
+	private void drawBulletEnemy(SpriteBatch batch) {
+		batch.begin();
+		for(int j=bulletEnemyQue.getFront();;j++){
+        	int k = bulletEnemyQue.getRear();
+        	if(j==BulletEnemyQue.sizeOfQue) {
+        		j=-1;
+       		}
+       		else if(j == k)
+       			break;
+       		else {
+       			BulletEnemy bulletEnemy = bulletEnemyQue.getBulletAt(j);
+       			if (bulletEnemy.getState() != BulletEnemy.STATE.OFF) {
+       				batch.draw(bulletEnemyImg,bulletEnemy.getPosition().x,bulletEnemy.getPosition().y);
+       			}
+       		}
+       	}
+		batch.end();
 	}
 	
 	private void drawEnemyInQue(SpriteBatch batch) {

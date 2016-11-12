@@ -20,6 +20,7 @@ public class Enemy {
 	private BulletQue bulletQue;
 	Rectangle enemyRectangle;
 	STATE state;
+	double lastTimeShoot;
 	
 	enum STATE {LIVE, DIE};
 	
@@ -30,6 +31,7 @@ public class Enemy {
 		enemyRectangle = new Rectangle();
 		enemyRectangle.setSize(enemyImg.getWidth(), enemyImg.getHeight());
 		this.state = STATE.LIVE;
+		this.lastTimeShoot = -1;
 		
 	}    
 //	public void EnemyArray() {
@@ -79,5 +81,13 @@ public class Enemy {
 	
 	public void getInjured() {
 		health--;
+	}
+	
+	public double getLastTimeShoot() {
+		return lastTimeShoot;
+	}
+	
+	public void setLastTimeShoot(double time) {
+		this.lastTimeShoot = time;
 	}
 }

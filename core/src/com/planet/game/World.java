@@ -14,6 +14,7 @@ public class World {
 //    private Enemy enemy1;
     private EnemyQue enemyQue;
     private STATE stateBullet;
+    private BulletEnemyQue bulletEnemyQue;
   
     World(PlanetGame planetGame) {
     	ship = new Ship(60,60,this);
@@ -25,6 +26,7 @@ public class World {
         enemyQue = new EnemyQue(bulletQue);
         enemyQue.createEnemy(800, 400, this);
         bulletQue.initVariable(enemyQue);
+        bulletEnemyQue = new BulletEnemyQue(this);
     }
     
     public Ground getGround1() {
@@ -79,9 +81,35 @@ public class World {
        			}
        		}
         }
+        bulletEnemyQue.updateAllBullet();
+        checkEnemyYPosition();
+    }
+    
+    public void checkEnemyYPosition() {
+    	 for(int i=enemyQue.getFront();;i++){
+         	int k = enemyQue.getRear();
+         	if(i==EnemyQue.sizeOfQue) {
+         		i=-1;
+        		}
+        		else if(i == k)
+        			break;
+        		else {
+        			if(ship.getPosition().y > enemyQue.getEnemyAt(i).getPosition().y) {
+        				enemyQue.getEnemyAt(i).getPosition().y += 1;
+        			}
+        			else if(ship.getPosition().y < enemyQue.getEnemyAt(i).getPosition().y) {
+        				enemyQue.getEnemyAt(i).getPosition().y -= 1;
+        			}
+        			
+        		}
+         }
     }
     
     public BulletQue getBulletQue() {
     	return bulletQue;
+    }
+    
+    public BulletEnemyQue getBulletEnemyQue() {
+    	return bulletEnemyQue;
     }
 }

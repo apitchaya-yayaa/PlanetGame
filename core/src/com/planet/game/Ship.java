@@ -54,6 +54,11 @@ public class Ship {
 	 public Vector2 getPosition() {
 		    return position;    
 		 }
+	 
+	 public Texture getImg() {
+			return shipImg;
+		}
+	 
 	 public void update() {
 		 /*currentDirection = nextDirection; 
 	     position.x += SPEED * DIR_DIFF[currentDirection][0];
