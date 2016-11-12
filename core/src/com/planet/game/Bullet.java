@@ -16,7 +16,7 @@ public class Bullet implements Disposable  {
 	World world;
 	private STATE state;
 	enum STATE {ON,OFF};
-	Rectangle bullet;
+	//Rectangle bulletRectangle;
 	
 	
 	public Bullet(float x,float y,World world) {
@@ -24,7 +24,8 @@ public class Bullet implements Disposable  {
 		state = STATE.ON;
 		this.world = world;  
 		enemyQue = world.getEnemyQue();
-		bullet = new Rectangle();
+//		bulletRectangle = new Rectangle();
+//		bulletRectangle.setSize(bulletImg.getWidth(), bulletImg.getHeight());
 	}
 	
 	public Vector2 getPosition() {
@@ -33,7 +34,7 @@ public class Bullet implements Disposable  {
 	
 	public void update() {
 		move();
-		checkEnemy();
+//		checkEnemy();
 		
 	}
 	
@@ -45,30 +46,34 @@ public class Bullet implements Disposable  {
 		return state;
 	}
 	
-	public void checkEnemy() {
-		for(int j=enemyQue.getFront();;j++){
-        	int k = enemyQue.getRear();
-        	if(j==EnemyQue.sizeOfQue) {
-        		j=-1;
-       		}
-       		else if(j == k)
-       			break;
-       		else {
-       			if(state == STATE.ON) {
-//       				System.out.println("AA");
-       				enemyImg = enemyQue.getEnemyAt(j).getImg();
-       				double Width = enemyImg.getWidth();
-       				double Height = enemyImg.getHeight();		
-       				if(position.x >= enemyQue.getEnemyAt(j).getPosition().x && position.x < enemyQue.getEnemyAt(j).getPosition().x + Width) {
-       					if(position.y >= enemyQue.getEnemyAt(j).getPosition().y && position.y < enemyQue.getEnemyAt(j).getPosition().y + Height) {
-//       						System.out.println("hello");
-       							state = STATE.OFF;
-       					}
-       				}
-       			}
-       		}
-		}	
-	}
+//	public Rectangle getRect() {
+//		return bulletRectangle;
+//	}
+	
+//	public void checkEnemy() {
+//		for(int j=enemyQue.getFront();;j++){
+//        	int k = enemyQue.getRear();
+//        	if(j==EnemyQue.sizeOfQue) {
+//        		j=-1;
+//       		}
+//       		else if(j == k)
+//       			break;
+//       		else {
+//       			if(state == STATE.ON) {
+////       				System.out.println("AA");
+//       				enemyImg = enemyQue.getEnemyAt(j).getImg();
+//       				double Width = enemyImg.getWidth();
+//       				double Height = enemyImg.getHeight();		
+//       				if(position.x >= enemyQue.getEnemyAt(j).getPosition().x && position.x < enemyQue.getEnemyAt(j).getPosition().x + Width) {
+//       					if(position.y >= enemyQue.getEnemyAt(j).getPosition().y && position.y < enemyQue.getEnemyAt(j).getPosition().y + Height) {
+////       						System.out.println("hello");
+//       							state = STATE.OFF;
+//       					}
+//       				}
+//       			}
+//       		}
+//		}	
+//	}
 	
 	@Override
 	public void dispose () {

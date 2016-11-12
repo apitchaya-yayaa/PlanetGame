@@ -18,23 +18,21 @@ public class Enemy {
 	private int speed = 3;
 	private int health = 2;
 	private BulletQue bulletQue;
-	Rectangle enemy;
-	Array<Rectangle> enemyArray;
+	Rectangle enemyRectangle;
 	
 	public Enemy(float x, float y,World world,Texture Img) {
 		position = new Vector2(x,y);
 		bulletQue = world.getBulletQue();
 		enemyImg = Img; 
-		enemy = new Rectangle();
-		enemyArray = new Array<Rectangle>();
+		enemyRectangle = new Rectangle();
+		enemyRectangle.setSize(enemyImg.getWidth(), enemyImg.getHeight());
 		
 	}    
 //	public void EnemyArray() {
-//		enemy.x = MathUtils.random(0, 800-64);
-//	    enemy.y = 480;
-//	    enemy.width = enemyImg.getWidth();
-//	    enemy.height = enemyImg.getHeight();
-//	    enemyArray.add(enemy);
+//		enemyRectangle.x = MathUtils.random(0, 800-64);
+//	    enemyRectangle.y = 480;
+//	    enemyRectangle.width = enemyImg.getWidth();
+//	    enemyRectangle.height = enemyImg.getHeight();
 //	}
 	
 	public void move() {
@@ -49,7 +47,15 @@ public class Enemy {
 		position.x = x;
 	}
 	
+	public Rectangle getRectangle() {
+		return enemyRectangle;
+	}
+	
 	public Texture getImg() {
 		return enemyImg;
+	}
+	
+	public void setRectCenter(float x, float y) {
+		enemyRectangle.setCenter(x, y);
 	}
 }

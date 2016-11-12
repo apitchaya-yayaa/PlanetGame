@@ -1,10 +1,13 @@
 package com.planet.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -35,6 +38,7 @@ public class WorldRenderer {
 	Rectangle bullets;
 	Array<Rectangle> bulletArray;
 	Rectangle enemy;
+	ShapeRenderer shapeRenderer;
 	
 	public WorldRenderer(PlanetGame planetGame, World world) {
         this.planetGame = planetGame;
@@ -58,6 +62,7 @@ public class WorldRenderer {
         bullets = new Rectangle();
         enemy = new Rectangle();
 //        stateBullet = Bullet.getState(); 
+        shapeRenderer = new ShapeRenderer();
         
     }
 	
@@ -90,13 +95,15 @@ public class WorldRenderer {
        		else
        			batch.draw(bulletImg,bulletQue.getBulletAt(j).getPosition().x,bulletQue.getBulletAt(j).getPosition().y);
        	}
-        batch.end();       
+        batch.end();  
         drawEnemyInQue(batch);
-//        update();
+        shapeRectangleEnemy();
+//        shapeRectangleBullet();
+        //update();
     }
 	
-//	private void update() {
-//		Iterator <Rectangle> iter_bullet = bulletArray.iterator();
+	private void update() {
+		Iterator <Rectangle> iter_bullet = bulletArray.iterator();
 //		while(iter_bullet.hasNext()) {
 //		    Rectangle bullets = iter_bullet.next();
 //		    bullets.y -= 200 * Gdx.graphics.getDeltaTime();
@@ -107,10 +114,10 @@ public class WorldRenderer {
 //		    batch.draw(bulletImg, bullets.x, bullets.y);
 //		}
 //		batch.end();
-//		if(bullets.overlaps(enemy)) {
-//		    iter_bullet.remove();
-//		}
-//	}
+		if(bullets.overlaps(enemy)) {
+		    iter_bullet.remove();
+		}
+	}
 	
 	private void drawEnemyInQue(SpriteBatch batch) {
 		batch.begin();
@@ -124,6 +131,8 @@ public class WorldRenderer {
        		else {
        			Texture IMG = enemyQue.getEnemyAt(j).getImg();
        			batch.draw(IMG,enemyQue.getEnemyAt(j).getPosition().x,enemyQue.getEnemyAt(j).getPosition().y);
+       			Vector2 enemyPos = enemyQue.getEnemyAt(j).getPosition();
+   				enemyQue.getEnemyAt(j).setRectCenter(enemyPos.x + IMG.getWidth() / 2, enemyPos.y + IMG.getHeight() / 2);
        		}
        	}
 		batch.end();
@@ -182,5 +191,44 @@ public class WorldRenderer {
        		}
 		}
 	}
+	
+	public void shapeRectangleEnemy() {
+		shapeRenderer.setProjectionMatrix(camera.combined);
+        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(Color.RED);
+        for(int j=enemyQue.getFront();;j++){
+        	int k = enemyQue.getRear();
+        	if(j==EnemyQue.sizeOfQue) {
+        		j=-1;
+       		}
+       		else if(j == k)
+       			break;
+       		else {
+       			Texture IMG = enemyQue.getEnemyAt(j).getImg();
+       			Rectangle enemyRect = enemyQue.getEnemyAt(j).getRectangle();
+       			shapeRenderer.rect(enemyRect.x, enemyRect.y, enemyRect.getWidth(), enemyRect.getHeight());
+       		}
+       	}
+        shapeRenderer.end();
+	}
+	
+//	public void shapeRectangleBullet() {
+//		shapeRenderer.setProjectionMatrix(camera.combined);
+//        shapeRenderer.begin(ShapeType.Filled);
+//        shapeRenderer.setColor(Color.RED);
+//        for(int j=bulletQue.getFront();;j++){
+//        	int k = bulletQue.getRear();
+//        	if(j==EnemyQue.sizeOfQue) {
+//        		j=-1;
+//       		}
+//       		else if(j == k)
+//       			break;
+//       		else {
+//       			Rectangle bulletRect = bulletQue.getBulletAt(j).getRect();  			
+//       			shapeRenderer.rect(bulletRect.x, bulletRect.y, bulletRect.getWidth(), bulletRect.getHeight());
+//       		}
+//       	}
+//        shapeRenderer.end();
+//	}
 	
 }
