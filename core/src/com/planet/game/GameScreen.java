@@ -3,6 +3,7 @@ package com.planet.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -62,25 +63,12 @@ public class GameScreen extends ScreenAdapter {
     	BulletQue bulletQue = world.getBulletQue();
     	BulletEnemyQue bulletEnemyQue = world.getBulletEnemyQue();
     	EnemyQue enemyQue = world.getEnemyQue();
+    	Sound shot = Gdx.audio.newSound(Gdx.files.internal("bullet.mp3"));
     	Ship ship = world.getShip();
     	if(Gdx.input.isKeyJustPressed(Keys.SPACE)) {
     		bulletQue.createBullet(ship.getPosition().x + 90,ship.getPosition().y + 35);
+    		shot.play(1.0f);
     	}
-//    	for(int j=enemyQue.getFront();;j++){
-//        	int k = enemyQue.getRear();
-//        	if(j==EnemyQue.sizeOfQue) {
-//        		j=-1;
-//       		}
-//       		else if(j == k)
-//       			break;
-//       		else {
-//       			Enemy enemy = enemyQue.getEnemyAt(j);
-//       			if(enemy.getLastTimeShoot() == -1 || System.currentTimeMillis() - enemy.getLastTimeShoot() >= 1000) {
-//           			bulletEnemyQue.createBullet(enemy.getPosition().x - 10 ,enemy.getPosition().y + 30);
-//           			enemy.setLastTimeShoot(System.currentTimeMillis());
-//       			}
-//       		}
-//       	}
     	
     }
 }

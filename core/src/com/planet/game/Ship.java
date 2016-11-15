@@ -102,6 +102,7 @@ public class Ship {
 		 if(health <= 0) {
 			 setState(STATE.DIE);
 		 }
+		 
 	 }
 	 
 	 public Circle getShipCircle() {

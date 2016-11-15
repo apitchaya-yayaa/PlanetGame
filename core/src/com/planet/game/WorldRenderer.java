@@ -1,6 +1,7 @@
 package com.planet.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -28,6 +29,7 @@ public class WorldRenderer {
 	private Texture life3Img = new Texture ("life3.png");
 	private Texture life2Img = new Texture ("life2.png");
 	private Texture life1Img = new Texture ("life1.png");
+	private Texture scoreImg = new Texture ("score.png");
 	private World world;
 	Ship ship;
 	private BulletQue bulletQue;
@@ -90,7 +92,7 @@ public class WorldRenderer {
         batch.draw(bgImg,camera.position.x - 400,camera.position.y - 300);
         batch.draw(groundImg,ground2.getPosition().x ,ground2.getPosition().y);
         batch.draw(groundImg,ground1.getPosition().x , ground1.getPosition().y);
-//        batch.draw(enemy1Img,enemy1.getPosition().x,enemy1.getPosition().y);
+        batch.draw(scoreImg,camera.position.x + 180,camera.position.y + 250);
         if(ship.getState() == Ship.STATE.LIVE) {
         	batch.draw(shipImg,ship.getPosition().x, ship.getPosition().y);
         }
@@ -161,6 +163,7 @@ public class WorldRenderer {
            			Vector2 enemyPos = enemyQue.getEnemyAt(j).getPosition();
        				enemyQue.getEnemyAt(j).setRectCenter(enemyPos.x + IMG.getWidth() / 2, enemyPos.y + IMG.getHeight() / 2);
        			}
+       			
        		}
        	}
 		batch.end();

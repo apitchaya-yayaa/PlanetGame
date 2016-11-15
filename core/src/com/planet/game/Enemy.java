@@ -1,6 +1,7 @@
 package com.planet.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -21,6 +22,7 @@ public class Enemy {
 	Rectangle enemyRectangle;
 	STATE state;
 	double lastTimeShoot;
+	Sound bomb = Gdx.audio.newSound(Gdx.files.internal("Bomb.mp3"));
 //	private int min = 300;
 //	private int max = 580;
 //	private int chance = 3;
@@ -48,6 +50,7 @@ public class Enemy {
 	public void update() {
 		if(health <= 0) {
 			this.state = STATE.DIE;
+			bomb.play(1.0f);
 		}
 	}
 	

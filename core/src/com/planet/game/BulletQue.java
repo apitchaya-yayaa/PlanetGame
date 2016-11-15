@@ -2,6 +2,8 @@ package com.planet.game;
 
 import java.util.LinkedList;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.planet.game.Bullet.STATE;
@@ -13,6 +15,7 @@ public class BulletQue {
 	private int rear = 0;
 	World world;
 	EnemyQue enemyQue;
+	Sound shot = Gdx.audio.newSound(Gdx.files.internal("Bullet.mp3"));
 	
 	public interface hitEnemyListener {
 		void notifyHitEnemy(int j);
@@ -67,6 +70,8 @@ public class BulletQue {
 	public void createBullet(float x,float y) {
 		Bullet bullet = new Bullet(x,y,world);
 		insert(bullet);
+		//shot.play(1.0f);
+		
 	}
 	
 	public int getFront() {
