@@ -94,4 +94,8 @@ public class Enemy {
 	public void setLastTimeShoot(double time) {
 		this.lastTimeShoot = time;
 	}
+	
+	public int getHealth() {
+		return health;
+	}
 }

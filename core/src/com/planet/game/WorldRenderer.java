@@ -23,6 +23,10 @@ public class WorldRenderer {
 	private Texture bgImg;
 	private Texture groundImg;
 	private Texture enemy1Img;
+	private Texture life4Img = new Texture ("life4.png");
+	private Texture life3Img = new Texture ("life3.png");
+	private Texture life2Img = new Texture ("life2.png");
+	private Texture life1Img = new Texture ("life1.png");
 	private World world;
 	Ship ship;
 	private BulletQue bulletQue;
@@ -94,6 +98,7 @@ public class WorldRenderer {
         drawEnemyInQue(batch);
         drawBulletEnemy(batch);
         RenderBulletEnemy();
+        drawHealthEnemy();
 //        shapeRectangleEnemy();
 //        shapeRectangleBullet();
 //        shapeCircleShip();
@@ -153,6 +158,41 @@ public class WorldRenderer {
            			batch.draw(IMG,enemyQue.getEnemyAt(j).getPosition().x,enemyQue.getEnemyAt(j).getPosition().y);
            			Vector2 enemyPos = enemyQue.getEnemyAt(j).getPosition();
        				enemyQue.getEnemyAt(j).setRectCenter(enemyPos.x + IMG.getWidth() / 2, enemyPos.y + IMG.getHeight() / 2);
+       			}
+       		}
+       	}
+		batch.end();
+	}
+	
+	public void drawHealthEnemy() {
+		batch.begin();
+		for(int j=enemyQue.getFront();;j++){
+        	int k = enemyQue.getRear();
+        	if(j==EnemyQue.sizeOfQue) {
+        		j=-1;
+       		}
+       		else if(j == k) {
+       			break;
+       		}
+       		else {
+       			Enemy enemy = enemyQue.getEnemyAt(j);
+       			if(enemy.getHealth() == 4) {
+       				batch.draw(life4Img,enemyQue.getEnemyAt(j).getPosition().x + 87,enemyQue.getEnemyAt(j).getPosition().y + 50);
+       				batch.draw(life3Img,enemyQue.getEnemyAt(j).getPosition().x + 87,enemyQue.getEnemyAt(j).getPosition().y + 35);
+       				batch.draw(life2Img,enemyQue.getEnemyAt(j).getPosition().x + 87,enemyQue.getEnemyAt(j).getPosition().y + 20);
+       				batch.draw(life1Img,enemyQue.getEnemyAt(j).getPosition().x + 87,enemyQue.getEnemyAt(j).getPosition().y + 5);
+       			}
+       			else if(enemy.getHealth() == 3) {
+       				batch.draw(life3Img,enemyQue.getEnemyAt(j).getPosition().x + 87,enemyQue.getEnemyAt(j).getPosition().y + 35);
+       				batch.draw(life2Img,enemyQue.getEnemyAt(j).getPosition().x + 87,enemyQue.getEnemyAt(j).getPosition().y + 20);
+       				batch.draw(life1Img,enemyQue.getEnemyAt(j).getPosition().x + 87,enemyQue.getEnemyAt(j).getPosition().y + 5);
+       			}
+       			else if(enemy.getHealth() == 2) {
+       				batch.draw(life2Img,enemyQue.getEnemyAt(j).getPosition().x + 87,enemyQue.getEnemyAt(j).getPosition().y + 20);
+       				batch.draw(life1Img,enemyQue.getEnemyAt(j).getPosition().x + 87,enemyQue.getEnemyAt(j).getPosition().y + 5);
+       			}
+       			else if(enemy.getHealth() == 1) {
+       				batch.draw(life1Img,enemyQue.getEnemyAt(j).getPosition().x + 87,enemyQue.getEnemyAt(j).getPosition().y + 5);
        			}
        		}
        	}

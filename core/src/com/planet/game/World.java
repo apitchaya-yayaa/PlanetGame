@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer.Rando
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.planet.game.Bullet.STATE;
+import java.util.*;
 
 public class World {
 	private Ship ship;
@@ -21,8 +22,9 @@ public class World {
 	private int max = 580;
     Texture enemy1Img = new Texture("enemy1.png");
     Texture enemy2Img = new Texture("enemy2.png");
+    int n = (int)(Math.random()*(max-min))+150;
+    int m = (int)(Math.random()*(max-min))+150;
     
-  
     World(PlanetGame planetGame) {
     	ship = new Ship(60,60,this);
         this.planetGame = planetGame;
@@ -31,10 +33,10 @@ public class World {
 //        enemy1 = new Enemy(800,400,this);
         bulletQue = new BulletQue(this);
         enemyQue = new EnemyQue(bulletQue);
-        enemyQue.createEnemy(800,350, this,enemy1Img);
+        enemyQue.createEnemy(800,n, this,enemy1Img);
         bulletQue.initVariable(enemyQue);
         bulletEnemyQue = new BulletEnemyQue(this);
-        enemyQue.createEnemy(800,450, this,enemy2Img);
+        enemyQue.createEnemy(800,m, this,enemy2Img);
 //        randomy = (int) Math.round((Math.random() * (max - min)) + min);
         initVariable();
     }
