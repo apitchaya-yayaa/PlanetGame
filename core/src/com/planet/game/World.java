@@ -2,6 +2,7 @@ package com.planet.game;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer.Random;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.planet.game.Bullet.STATE;
@@ -18,7 +19,9 @@ public class World {
     private BulletEnemyQue bulletEnemyQue;
     private int min = 300;
 	private int max = 580;
-	private int randomy;
+    Texture enemy1Img = new Texture("enemy1.png");
+    Texture enemy2Img = new Texture("enemy2.png");
+    
   
     World(PlanetGame planetGame) {
     	ship = new Ship(60,60,this);
@@ -28,10 +31,12 @@ public class World {
 //        enemy1 = new Enemy(800,400,this);
         bulletQue = new BulletQue(this);
         enemyQue = new EnemyQue(bulletQue);
-        enemyQue.createEnemy(800,350, this);
+        enemyQue.createEnemy(800,350, this,enemy1Img);
         bulletQue.initVariable(enemyQue);
         bulletEnemyQue = new BulletEnemyQue(this);
+        enemyQue.createEnemy(800,450, this,enemy2Img);
 //        randomy = (int) Math.round((Math.random() * (max - min)) + min);
+        initVariable();
     }
     
     public Ground getGround1() {
@@ -49,6 +54,10 @@ public class World {
 //    public Enemy getEnemy() {
 //    	return enemy1;
 //    }
+    
+    public void initVariable() {
+    	ship.initVariable();
+    }
     
     public EnemyQue getEnemyQue() {
     	return enemyQue;
@@ -86,8 +95,10 @@ public class World {
        			}
        		}
         }
+        bulletEnemyQue.checkAllBullet();
         bulletEnemyQue.updateAllBullet();
         checkEnemyYPosition();
+       
     }
     
     public void checkEnemyYPosition() {
@@ -115,5 +126,10 @@ public class World {
     
     public BulletEnemyQue getBulletEnemyQue() {
     	return bulletEnemyQue;
+    }
+    
+    public static int randInt(int min, int max) { 
+        int randomNum = (int) Math.round((Math.random() * (max - min)) + min);
+        return randomNum;
     }
 }

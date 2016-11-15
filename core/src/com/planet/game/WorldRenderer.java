@@ -86,7 +86,9 @@ public class WorldRenderer {
         batch.draw(groundImg,ground2.getPosition().x ,ground2.getPosition().y);
         batch.draw(groundImg,ground1.getPosition().x , ground1.getPosition().y);
 //        batch.draw(enemy1Img,enemy1.getPosition().x,enemy1.getPosition().y);
-        batch.draw(shipImg,ship.getPosition().x, ship.getPosition().y);
+        if(ship.getState() == Ship.STATE.LIVE) {
+        	batch.draw(shipImg,ship.getPosition().x, ship.getPosition().y);
+        }
         batch.end();  
         drawBullet(batch);
         drawEnemyInQue(batch);
@@ -94,7 +96,7 @@ public class WorldRenderer {
         RenderBulletEnemy();
 //        shapeRectangleEnemy();
 //        shapeRectangleBullet();
-        shapeCircleShip();
+//        shapeCircleShip();
     }
 	
 	private void drawBullet(SpriteBatch batch) {

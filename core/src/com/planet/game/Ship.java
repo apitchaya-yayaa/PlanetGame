@@ -25,8 +25,10 @@ public class Ship {
     private int nextDirection;
     private World world;
     private Circle shipCircle;
+    private int health = 5;
     STATE state;
     enum STATE {LIVE,DIE};
+    BulletEnemyQue bulletEnemyQue;
     
 	public Ship(int x, int y, World world) {
 		position = new Vector2(x,y);
@@ -38,13 +40,18 @@ public class Ship {
 	    this.state = STATE.LIVE;
 	}    
 	
+	public void initVariable() {
+	    bulletEnemyQue = world.getBulletEnemyQue();
+	    registerHitShipListener();
+	}
+	
 	 private static final int [][] DIR_DIFF = new int [][] {
 	        {0,0},
 	        {0,1},
 	        {1,0},
 	        {0,-1},
 	        {-1,0}
-	    };
+	 };
 	    
 	 public void setNextDirection(int dir) {
 		nextDirection = dir;		
@@ -57,7 +64,7 @@ public class Ship {
 	 public void move(int dir) { 
 	        position.x += SPEED * DIR_DIFF[dir][0];
 	        position.y += SPEED * DIR_DIFF[dir][1];
-	    }
+	  }
 	 
 	 public Vector2 getPosition() {
 		    return position;    
@@ -65,10 +72,36 @@ public class Ship {
 	 
 	 public Texture getImg() {
 			return shipImg;
-		}
+	}
+	 
+	 public STATE getState() {
+		 return state;
+	 }
+	 
+	 public void registerHitShipListener() {
+		 bulletEnemyQue.registerHitShipListener(new BulletEnemyQue.hitShipListener() {
+			
+			@Override
+			public void notifyHitShip() {
+				health--;
+
+			}
+		});
+	 }
+	 
+	 public void getInjured() {
+		 health--;
+	 }
+		
+	public void setState(STATE state) {
+		this.state = state;
+	}
 	 
 	 public void update() {
 		 shipCircle.set(position.x + shipImg.getWidth() / 2, position.y + shipImg.getHeight() / 2, shipImg.getWidth() / 2);
+		 if(health <= 0) {
+			 setState(STATE.DIE);
+		 }
 	 }
 	 
 	 public Circle getShipCircle() {

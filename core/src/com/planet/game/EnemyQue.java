@@ -53,11 +53,9 @@ public class EnemyQue {
 		}
 	}
 	
-	public void createEnemy(float x,float y, World world) {
-		Enemy enemy1 = new Enemy(x,y, world, enemy1Img);
-		Enemy enemy2 = new Enemy(x,y, world, enemy2Img);
-		insert(enemy1);
-		insert(enemy2);
+	public void createEnemy(float x,float y, World world, Texture IMG) {
+		Enemy enemy = new Enemy(x,y, world, IMG);
+		insert(enemy);
 	}
 	
 	public int getFront() {

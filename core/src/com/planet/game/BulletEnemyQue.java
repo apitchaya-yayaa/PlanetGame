@@ -14,26 +14,29 @@ public class BulletEnemyQue {
 	private int rear = 0;
 	World world;
 	Ship ship;
+	EnemyQue enemyQue;
 
-	// public interface hitEnemyListener {
-	// void notifyHitEnemy(int j);
-	// }
-	//
-	// private LinkedList<hitEnemyListener> hitEnemyListeners;
-	//
-	// public void registerHitEnemyListener(hitEnemyListener l){
-	// hitEnemyListeners.add(l);
-	// }
-	//
-	// private void notifyHitEnemyListener(int j) {
-	// for(hitEnemyListener l : hitEnemyListeners) {
-	// l.notifyHitEnemy(j);
-	// }
-	// }
-	//
+	 public interface hitShipListener {
+		 void notifyHitShip();
+	 }
+	
+	 private LinkedList<hitShipListener> hitShipListeners;
+	
+	 public void registerHitShipListener(hitShipListener l){
+		 hitShipListeners.add(l);
+	 }
+	
+	 private void notifyHitShipListener() {
+		 for(hitShipListener l : hitShipListeners) {
+			 l.notifyHitShip();
+		 }
+	 }
+	
 	public BulletEnemyQue(World world) {
 		this.world = world;
-		// hitEnemyListeners = new LinkedList<hitEnemyListener>();
+		ship = world.getShip();
+		enemyQue =  world.getEnemyQue();
+		hitShipListeners = new LinkedList<hitShipListener>();
 	}
 
 	public void initVariable(Ship ship) {
@@ -63,6 +66,10 @@ public class BulletEnemyQue {
 			front = 0;
 		}
 	}
+	
+	public void update(){
+		
+	}
 
 	public void createBullet(float x, float y) {
 		BulletEnemy bulletEnemy = new BulletEnemy(x, y, world);
@@ -84,21 +91,21 @@ public class BulletEnemyQue {
 	public void checkAllBullet() {
 		for (int j = getFront();; j++) {
 			int k = getRear();
-			if (j == BulletQue.sizeOfQue) {
+			if (j == BulletEnemyQue.sizeOfQue) {
 				j = -1;
-			} else if (j == k)
+			} else if (j == k) {
 				break;
-			else {
-				// checkEnemy(j);
 			}
-			// bulletQue.getBulletAt(j).checkEnemy();
+			else {
+				checkShip(j);
+			}
 		}
 	}
 
 	public void updateAllBullet() {
 			for(int j=getFront();;j++){
 	        	int k = getRear();
-	        	if(j==BulletQue.sizeOfQue) {
+	        	if(j==BulletEnemyQue.sizeOfQue) {
 	       			j=-1;
 	       		}
 	       		else if(j == k)
@@ -111,33 +118,25 @@ public class BulletEnemyQue {
 	       	}
 }
 
-	// public void checkEnemy(int i) {
-	// Bullet bullet = getBulletAt(i);
-	// for(int j=enemyQue.getFront();;j++){
-	// int k = enemyQue.getRear();
-	// if(j==EnemyQue.sizeOfQue) {
-	// j=-1;
-	// }
-	// else if(j == k)
-	// break;
-	// else {
-	// if(bullet.getState() == STATE.ON) {
-	//// System.out.println("AA");
-	// Texture shipImg = Ship.getImg();
-	// double Width = enemyImg.getWidth();
-	// double Height = enemyImg.getHeight();
-	// Vector2 bulletPos = bullet.getPosition();
-	// if(bulletPos.x >= enemyQue.getEnemyAt(j).getPosition().x && bulletPos.x <
-	// enemyQue.getEnemyAt(j).getPosition().x + Width) {
-	// if(bulletPos.y >= enemyQue.getEnemyAt(j).getPosition().y && bulletPos.y <
-	// enemyQue.getEnemyAt(j).getPosition().y + Height) {
-	//// System.out.println("hello");
-	// bullet.setState(STATE.OFF);
-	// notifyHitEnemyListener(j);
-	// }
-	// }
-	// }
-	// }
-	// }
-	// }
+	private void checkShip(int i) {
+		BulletEnemy bulletEnemy = getBulletAt(i);
+       	if(bulletEnemy.getState() == BulletEnemy.STATE.ON) {
+       		Texture shipImg = ship.getImg();
+       		Ship ship = world.getShip();
+       		double Width = shipImg.getWidth();
+       		double Height = shipImg.getHeight();
+       		Vector2 bulletPos = bulletEnemy.getPosition();
+       		if(bulletPos.x >= ship.getPosition().x && bulletPos.x < ship.getPosition().x + Width) {
+       			if(bulletPos.y >= ship.getPosition().y && bulletPos.y < ship.getPosition().y + Height) {
+   	   				notifyHitShipListener();
+       				bulletEnemy.setState(BulletEnemy.STATE.OFF);
+       				if(ship.getState() == Ship.STATE.DIE) {
+       					bulletEnemy.setState(BulletEnemy.STATE.ON);
+       				}
+       			}
+       		}
+       	}
+   	}
+		
+	
 }
