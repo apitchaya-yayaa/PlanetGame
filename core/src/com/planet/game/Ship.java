@@ -89,8 +89,8 @@ public class Ship {
 		});
 	 }
 	 
-	 public void getInjured() {
-		 health--;
+	 public int getHealth() {
+		 return health;
 	 }
 		
 	public void setState(STATE state) {

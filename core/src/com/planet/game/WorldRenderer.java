@@ -23,6 +23,7 @@ public class WorldRenderer {
 	private Texture bgImg;
 	private Texture groundImg;
 	private Texture enemy1Img;
+	private Texture healthImg = new Texture ("health.png");
 	private Texture life4Img = new Texture ("life4.png");
 	private Texture life3Img = new Texture ("life3.png");
 	private Texture life2Img = new Texture ("life2.png");
@@ -99,6 +100,7 @@ public class WorldRenderer {
         drawBulletEnemy(batch);
         RenderBulletEnemy();
         drawHealthEnemy();
+        drawHealthShip();
 //        shapeRectangleEnemy();
 //        shapeRectangleBullet();
 //        shapeCircleShip();
@@ -176,26 +178,41 @@ public class WorldRenderer {
        		}
        		else {
        			Enemy enemy = enemyQue.getEnemyAt(j);
-       			if(enemy.getHealth() == 4) {
-       				batch.draw(life4Img,enemyQue.getEnemyAt(j).getPosition().x + 87,enemyQue.getEnemyAt(j).getPosition().y + 50);
-       				batch.draw(life3Img,enemyQue.getEnemyAt(j).getPosition().x + 87,enemyQue.getEnemyAt(j).getPosition().y + 35);
-       				batch.draw(life2Img,enemyQue.getEnemyAt(j).getPosition().x + 87,enemyQue.getEnemyAt(j).getPosition().y + 20);
+       			if(enemy.getHealth() >= 1) {
        				batch.draw(life1Img,enemyQue.getEnemyAt(j).getPosition().x + 87,enemyQue.getEnemyAt(j).getPosition().y + 5);
-       			}
-       			else if(enemy.getHealth() == 3) {
-       				batch.draw(life3Img,enemyQue.getEnemyAt(j).getPosition().x + 87,enemyQue.getEnemyAt(j).getPosition().y + 35);
-       				batch.draw(life2Img,enemyQue.getEnemyAt(j).getPosition().x + 87,enemyQue.getEnemyAt(j).getPosition().y + 20);
-       				batch.draw(life1Img,enemyQue.getEnemyAt(j).getPosition().x + 87,enemyQue.getEnemyAt(j).getPosition().y + 5);
-       			}
-       			else if(enemy.getHealth() == 2) {
-       				batch.draw(life2Img,enemyQue.getEnemyAt(j).getPosition().x + 87,enemyQue.getEnemyAt(j).getPosition().y + 20);
-       				batch.draw(life1Img,enemyQue.getEnemyAt(j).getPosition().x + 87,enemyQue.getEnemyAt(j).getPosition().y + 5);
-       			}
-       			else if(enemy.getHealth() == 1) {
-       				batch.draw(life1Img,enemyQue.getEnemyAt(j).getPosition().x + 87,enemyQue.getEnemyAt(j).getPosition().y + 5);
+       				if(enemy.getHealth() >= 2) {
+       					batch.draw(life2Img,enemyQue.getEnemyAt(j).getPosition().x + 87,enemyQue.getEnemyAt(j).getPosition().y + 20);
+       					if(enemy.getHealth() >= 3) {
+       						batch.draw(life3Img,enemyQue.getEnemyAt(j).getPosition().x + 87,enemyQue.getEnemyAt(j).getPosition().y + 35);
+       						if(enemy.getHealth() >= 4) {
+       							batch.draw(life4Img,enemyQue.getEnemyAt(j).getPosition().x + 87,enemyQue.getEnemyAt(j).getPosition().y + 50);
+       						}
+       					}
+       				}
        			}
        		}
        	}
+		batch.end();
+	}
+	
+	public void drawHealthShip() {
+		batch.begin();
+		Ship ship = world.getShip();
+		if(ship.getHealth() >= 1) {
+				batch.draw(healthImg,camera.position.x - 380,camera.position.y + 250);
+				if(ship.getHealth() >= 2) {
+					batch.draw(healthImg,camera.position.x - 330,camera.position.y + 250);
+					if(ship.getHealth() >= 3) {
+						batch.draw(healthImg,camera.position.x - 280,camera.position.y + 250);
+						if(ship.getHealth() >= 4) {
+							batch.draw(healthImg,camera.position.x - 230,camera.position.y + 250);
+							if(ship.getHealth() >= 5) {
+								batch.draw(healthImg,camera.position.x - 180,camera.position.y + 250);
+							}
+						}
+					}
+				}
+			}
 		batch.end();
 	}
 	
