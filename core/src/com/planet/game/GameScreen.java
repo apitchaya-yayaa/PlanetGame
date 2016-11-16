@@ -14,7 +14,7 @@ public class GameScreen extends ScreenAdapter {
 	private PlanetGame planetGame;
 	private Ship ship;
     World world;
-    WorldRenderer worldRenderer;
+    static public WorldRenderer worldRenderer;
     SoundEffect soundEffect;
 	 
     public GameScreen(PlanetGame planetGame) {
@@ -26,6 +26,7 @@ public class GameScreen extends ScreenAdapter {
         soundEffect.getMusic().setLooping(true);
         soundEffect.getMusic().setVolume(0.5f);
         soundEffect.getMusic().play();
+        world.initVariable(worldRenderer);
         
     }
     
@@ -40,7 +41,6 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     	update(delta);
     	updateAction();
-//    	world.update(delta);
     	worldRenderer.render(delta);
     }
     
@@ -75,4 +75,8 @@ public class GameScreen extends ScreenAdapter {
     	}
     	
     }
+//    
+//    private WorldRenderer getWorldRenderer() {
+//    	return worldRenderer;
+//    }
 }

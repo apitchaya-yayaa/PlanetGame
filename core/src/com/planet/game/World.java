@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer.Rando
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.planet.game.Bullet.STATE;
-import java.util.*;
 
 public class World {
 	private Ship ship;
@@ -26,6 +25,9 @@ public class World {
     int n = (int)(Math.random()*(max-min))+150;
     int m = (int)(Math.random()*(max-min))+150;
     int k = (int)(Math.random()*(max-min))+150;
+    private OrthographicCamera camera;
+    double lastSpawn = -1; 
+    WorldRenderer worldRenderer;
     
     World(PlanetGame planetGame) {
     	ship = new Ship(60,60,this);
@@ -34,12 +36,9 @@ public class World {
         ground2 = new Ground(610,0);
         bulletQue = new BulletQue(this);
         enemyQue = new EnemyQue(bulletQue);
-        enemyQue.createEnemy(800,n, this,enemy1Img);
         bulletQue.initVariable(enemyQue);
         bulletEnemyQue = new BulletEnemyQue(this);
-        enemyQue.createEnemy(800,m, this,enemy2Img);
-        enemyQue.createEnemy(800,k, this,enemy3Img);
-        initVariable();
+        worldRenderer = GameScreen.worldRenderer;
     }
     
     
@@ -59,8 +58,10 @@ public class World {
 //    	return enemy1;
 //    }
     
-    public void initVariable() {
+    public void initVariable(WorldRenderer worldRenderer) {
     	ship.initVariable();
+    	this.worldRenderer = worldRenderer;
+    	camera = worldRenderer.getCameraPosition();
     }
     
     public EnemyQue getEnemyQue() {
@@ -73,6 +74,7 @@ public class World {
     
     public void update(float delta) {
         ship.update();
+        spawnEnemy();
         for(int j=bulletQue.getFront();;j++){
         	int k = bulletQue.getRear();
         	if(j==BulletQue.sizeOfQue) {
@@ -128,6 +130,25 @@ public class World {
          }
     }
     
+    public void spawnEnemy() {
+    	int prob = (int)(Math.random() * 1000)-1;
+    	int n = (int)(Math.random()*(max-min))+150;
+    	if(lastSpawn == -1 || System.currentTimeMillis() - lastSpawn >= 1000) {
+    		if(prob < 5) {
+    			int nbImg = ((int)(Math.random() * 10) - 1) % 3;
+    			Texture willBeUsed;
+    			if(nbImg == 0) {
+    				willBeUsed = enemy1Img;
+    			} else if(nbImg == 1) {
+    				willBeUsed = enemy2Img;
+    			} else {
+    				willBeUsed = enemy3Img;
+    			}
+    			enemyQue.createEnemy(camera.position.x + 400 ,n, this,willBeUsed);
+    			lastSpawn = System.currentTimeMillis();
+    		}
+    	}
+    }
     
     public BulletQue getBulletQue() {
     	return bulletQue;

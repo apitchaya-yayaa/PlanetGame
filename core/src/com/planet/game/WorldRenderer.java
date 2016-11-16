@@ -2,6 +2,7 @@ package com.planet.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -323,6 +324,10 @@ public class WorldRenderer {
         shapeRenderer.setColor(Color.RED);
         shapeRenderer.circle(ship.getShipCircle().x, ship.getShipCircle().y, ship.getShipCircle().radius);
         shapeRenderer.end();
+	}
+	
+	public OrthographicCamera getCameraPosition() {
+		return camera;
 	}
 	
 	public void RenderBulletEnemy() {
