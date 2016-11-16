@@ -1,6 +1,7 @@
 package com.planet.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -29,6 +30,8 @@ public class Ship {
     STATE state;
     enum STATE {LIVE,DIE};
     BulletEnemyQue bulletEnemyQue;
+    boolean bombplayed = false;
+    SoundEffect soundEffect;
     
 	public Ship(int x, int y, World world) {
 		position = new Vector2(x,y);
@@ -38,6 +41,7 @@ public class Ship {
 	    this.world = world;
 	    shipCircle = new Circle();
 	    this.state = STATE.LIVE;
+	    soundEffect = new SoundEffect();
 	}    
 	
 	public void initVariable() {
@@ -99,8 +103,10 @@ public class Ship {
 	 
 	 public void update() {
 		 shipCircle.set(position.x + shipImg.getWidth() / 2, position.y + shipImg.getHeight() / 2, shipImg.getWidth() / 2);
-		 if(health <= 0) {
+		 if(health <= 0 && !bombplayed) {
 			 setState(STATE.DIE);
+			 soundEffect.getSoundBomb().play(1.0f);
+			 bombplayed = true;
 		 }
 		 
 	 }

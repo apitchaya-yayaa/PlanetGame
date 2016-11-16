@@ -3,6 +3,7 @@ package com.planet.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,14 +15,18 @@ public class GameScreen extends ScreenAdapter {
 	private Ship ship;
     World world;
     WorldRenderer worldRenderer;
-    
+    SoundEffect soundEffect;
 	 
     public GameScreen(PlanetGame planetGame) {
         this.planetGame = planetGame;
         world = new World(planetGame);
         worldRenderer = new WorldRenderer(planetGame,world);
         ship = world.getShip();
-
+        soundEffect = new SoundEffect();
+        soundEffect.getMusic().setLooping(true);
+        soundEffect.getMusic().setVolume(0.5f);
+        soundEffect.getMusic().play();
+        
     }
     
     private void update(float delta) {
@@ -63,11 +68,10 @@ public class GameScreen extends ScreenAdapter {
     	BulletQue bulletQue = world.getBulletQue();
     	BulletEnemyQue bulletEnemyQue = world.getBulletEnemyQue();
     	EnemyQue enemyQue = world.getEnemyQue();
-    	Sound shot = Gdx.audio.newSound(Gdx.files.internal("bullet.mp3"));
     	Ship ship = world.getShip();
     	if(Gdx.input.isKeyJustPressed(Keys.SPACE)) {
     		bulletQue.createBullet(ship.getPosition().x + 90,ship.getPosition().y + 35);
-    		shot.play(1.0f);
+    		soundEffect.getSoundShot().play(1.0f);
     	}
     	
     }

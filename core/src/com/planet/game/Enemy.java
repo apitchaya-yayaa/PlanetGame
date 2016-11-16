@@ -22,7 +22,7 @@ public class Enemy {
 	Rectangle enemyRectangle;
 	STATE state;
 	double lastTimeShoot;
-	Sound bomb = Gdx.audio.newSound(Gdx.files.internal("Bomb.mp3"));
+	SoundEffect soundEffect;
 //	private int min = 300;
 //	private int max = 580;
 //	private int chance = 3;
@@ -38,6 +38,7 @@ public class Enemy {
 		enemyRectangle.setSize(enemyImg.getWidth(), enemyImg.getHeight());
 		this.state = STATE.LIVE;
 		this.lastTimeShoot = -1;
+		soundEffect = new SoundEffect();
 		
 	}    
 //	public void EnemyArray() {
@@ -50,12 +51,40 @@ public class Enemy {
 	public void update() {
 		if(health <= 0) {
 			this.state = STATE.DIE;
-			bomb.play(1.0f);
+			soundEffect.getSoundBomb().play(1.0f);
 		}
 	}
 	
 	public void move() {
 		position.x -= speed;
+	}
+	
+	public boolean checkEnemyCanMove(EnemyQue enemyQue, boolean up) {
+		for(int j=enemyQue.getFront();;j++){
+        	int k = enemyQue.getRear();
+        	if(j==EnemyQue.sizeOfQue) {
+        		j=-1;
+       		}
+       		else if(j == k) {
+       			break;
+       		}
+       		else if(enemyQue.getEnemyAt(j)==this) {
+       			continue;
+       		}
+       		else {
+       			if(up) {
+       				if(enemyQue.getEnemyAt(j).getPosition().y - position.y < 70 && position.y < enemyQue.getEnemyAt(j).getPosition().y || position.y == enemyQue.getEnemyAt(j).getPosition().y) {
+       					return false;
+           			}
+       			}
+       			else {
+       				if(position.y - enemyQue.getEnemyAt(j).getPosition().y < 70 && position.y > enemyQue.getEnemyAt(j).getPosition().y || position.y == enemyQue.getEnemyAt(j).getPosition().y) {
+       					return false;
+       				}
+       			}
+       		}
+		}
+		return true;
 	}
 	
 	public Vector2 getPosition() {

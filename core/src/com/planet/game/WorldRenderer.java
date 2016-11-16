@@ -30,6 +30,7 @@ public class WorldRenderer {
 	private Texture life2Img = new Texture ("life2.png");
 	private Texture life1Img = new Texture ("life1.png");
 	private Texture scoreImg = new Texture ("score.png");
+	private Texture gameoverImg = new Texture ("gameover.png");
 	private World world;
 	Ship ship;
 	private BulletQue bulletQue;
@@ -39,11 +40,8 @@ public class WorldRenderer {
 	private OrthographicCamera camera;
 	private Ground defaultground;
 	static int cameraspeed = 1;
-//	Enemy enemy1;
 	private static int enemyGab = 150;
 	private EnemyQue enemyQue;
-	private STATE stateBullet;
-	private Bullet bullet;
 	Rectangle bullets;
 	Array<Rectangle> bulletArray;
 	Rectangle enemy;
@@ -61,8 +59,6 @@ public class WorldRenderer {
         ground1 = world.getGround1();
         ground2 = world.getGround2();
         groundImg = new Texture("groundmove.png");
-//        enemy1Img = new Texture("enemy1.png");
-//        enemy1 = world.getEnemy();
         camera = new OrthographicCamera();
         camera.setToOrtho(false,800,600);
         defaultground = world.getGround1();
@@ -70,19 +66,16 @@ public class WorldRenderer {
         bulletArray = new Array<Rectangle>();
         bullets = new Rectangle();
         enemy = new Rectangle();
-//        stateBullet = Bullet.getState(); 
         shapeRenderer = new ShapeRenderer();
         
     }
 	
 	public void render(float delta) {
-		//camera.position.x = ship.getPosition().x + 200;
 		camera.position.x += cameraspeed;
 		camera.update();
 		checkGround();
 		checkEnemy();
         TopBullet = world.getTopBullet();
-        //System.out.println(TopBullet);
     	Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         SpriteBatch batch = planetGame.batch;
@@ -96,6 +89,7 @@ public class WorldRenderer {
         if(ship.getState() == Ship.STATE.LIVE) {
         	batch.draw(shipImg,ship.getPosition().x, ship.getPosition().y);
         }
+        
         batch.end();  
         drawBullet(batch);
         drawEnemyInQue(batch);
@@ -103,6 +97,11 @@ public class WorldRenderer {
         RenderBulletEnemy();
         drawHealthEnemy();
         drawHealthShip();
+        batch.begin();
+        if(ship.getState() == Ship.STATE.DIE) {
+        	batch.draw(gameoverImg,camera.position.x - 400, camera.position.y - 300);
+       	}
+        batch.end();
 //        shapeRectangleEnemy();
 //        shapeRectangleBullet();
 //        shapeCircleShip();
