@@ -27,6 +27,7 @@ public class Enemy {
 //	private int max = 580;
 //	private int chance = 3;
 //	private int randomy;
+	public int checkScore;
 	
 	enum STATE {LIVE, DIE};
 	
@@ -39,6 +40,7 @@ public class Enemy {
 		this.state = STATE.LIVE;
 		this.lastTimeShoot = -1;
 		soundEffect = new SoundEffect();
+		checkScore = 1;
 		
 	}    
 //	public void EnemyArray() {

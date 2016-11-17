@@ -19,7 +19,12 @@ public class GameScreen extends ScreenAdapter {
 	 
     public GameScreen(PlanetGame planetGame) {
         this.planetGame = planetGame;
-        world = new World(planetGame);
+        init();
+        
+    }
+    
+    public void init() {
+    	world = new World(planetGame);
         worldRenderer = new WorldRenderer(planetGame,world);
         ship = world.getShip();
         soundEffect = new SoundEffect();
@@ -27,7 +32,6 @@ public class GameScreen extends ScreenAdapter {
         soundEffect.getMusic().setVolume(0.5f);
         soundEffect.getMusic().play();
         world.initVariable(worldRenderer);
-        
     }
     
     private void update(float delta) {
@@ -70,8 +74,13 @@ public class GameScreen extends ScreenAdapter {
     	EnemyQue enemyQue = world.getEnemyQue();
     	Ship ship = world.getShip();
     	if(Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-    		bulletQue.createBullet(ship.getPosition().x + 90,ship.getPosition().y + 35);
-    		soundEffect.getSoundShot().play(1.0f);
+    		if(ship.getState() == Ship.STATE.LIVE) {
+    			bulletQue.createBullet(ship.getPosition().x + 90,ship.getPosition().y + 35);
+    			soundEffect.getSoundShot().play(1.0f);
+    		}
+    		else {
+    			init();
+    		}
     	}
     	
     }

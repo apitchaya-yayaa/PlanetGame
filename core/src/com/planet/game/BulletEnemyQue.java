@@ -126,8 +126,8 @@ public class BulletEnemyQue {
        		double Width = shipImg.getWidth();
        		double Height = shipImg.getHeight();
        		Vector2 bulletPos = bulletEnemy.getPosition();
-       		if(bulletPos.x >= ship.getPosition().x && bulletPos.x < ship.getPosition().x + Width) {
-       			if(bulletPos.y >= ship.getPosition().y && bulletPos.y < ship.getPosition().y + Height) {
+       		if(bulletPos.x >= ship.getShipCircle().x - 46 && bulletPos.x < ship.getShipCircle().x - 46 + Width) {
+       			if(bulletPos.y >= ship.getShipCircle().y - 40 && bulletPos.y < ship.getShipCircle().y - 40 + Height) {
    	   				notifyHitShipListener();
        				bulletEnemy.setState(BulletEnemy.STATE.OFF);
        				if(ship.getState() == Ship.STATE.DIE) {

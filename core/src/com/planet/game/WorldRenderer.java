@@ -7,7 +7,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
@@ -31,6 +34,7 @@ public class WorldRenderer {
 	private Texture life2Img = new Texture ("life2.png");
 	private Texture life1Img = new Texture ("life1.png");
 	private Texture scoreImg = new Texture ("score.png");
+	private Texture tryagainImg = new Texture ("tryagainbutton.png");
 	private Texture gameoverImg = new Texture ("gameover.png");
 	private World world;
 	Ship ship;
@@ -47,6 +51,10 @@ public class WorldRenderer {
 	Array<Rectangle> bulletArray;
 	Rectangle enemy;
 	ShapeRenderer shapeRenderer;
+	FreeTypeFontGenerator generator;
+	FreeTypeFontParameter parameter;
+	private BitmapFont font;
+	
 	
 	public WorldRenderer(PlanetGame planetGame, World world) {
         this.planetGame = planetGame;
@@ -68,6 +76,7 @@ public class WorldRenderer {
         bullets = new Rectangle();
         enemy = new Rectangle();
         shapeRenderer = new ShapeRenderer();
+        font = new BitmapFont();
         
     }
 	
@@ -90,7 +99,7 @@ public class WorldRenderer {
         if(ship.getState() == Ship.STATE.LIVE) {
         	batch.draw(shipImg,ship.getPosition().x, ship.getPosition().y);
         }
-        
+        font.draw(batch, "" + world.getScore(),camera.position.x + 350, camera.position.y + 265);   
         batch.end();  
         drawBullet(batch);
         drawEnemyInQue(batch);
@@ -108,6 +117,7 @@ public class WorldRenderer {
 //        shapeCircleShip();
         
     }
+	
 	
 	private void drawBullet(SpriteBatch batch) {
 		batch.begin();
@@ -324,6 +334,7 @@ public class WorldRenderer {
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(Color.RED);
         shapeRenderer.circle(ship.getShipCircle().x, ship.getShipCircle().y, ship.getShipCircle().radius);
+        System.out.println(ship.getShipCircle().x+" "+ship.getPosition().x+" "+ship.getShipCircle().y+" "+ship.getPosition().y );
         shapeRenderer.end();
 	}
 	
@@ -349,6 +360,14 @@ public class WorldRenderer {
        			}
        		}
        	}
+	}
+	
+	public void getFont() {
+		generator = new FreeTypeFontGenerator(Gdx.files.internal("font/8-BIT WONDER.ttf"));
+		parameter = new FreeTypeFontParameter();
+		parameter.size = 18;
+		BitmapFont fontBit = generator.generateFont(parameter);
+		generator.dispose();
 	}
 	
 }
