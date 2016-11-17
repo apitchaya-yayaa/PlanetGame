@@ -38,7 +38,7 @@ public class WorldRenderer {
 	private BulletEnemyQue bulletEnemyQue;
 	int TopBullet;
 	private Ground ground1,ground2;
-	private OrthographicCamera camera;
+	private static OrthographicCamera camera;
 	private Ground defaultground;
 	static int cameraspeed = 1;
 	private static int enemyGab = 150;
@@ -106,6 +106,7 @@ public class WorldRenderer {
 //        shapeRectangleEnemy();
 //        shapeRectangleBullet();
 //        shapeCircleShip();
+        
     }
 	
 	private void drawBullet(SpriteBatch batch) {
