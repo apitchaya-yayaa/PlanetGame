@@ -83,6 +83,7 @@ public class WorldRenderer {
 	public void render(float delta) {
 		camera.position.x += cameraspeed;
 		camera.update();
+		updateShipPosition();
 		checkGround();
 		checkEnemy();
         TopBullet = world.getTopBullet();
@@ -117,6 +118,12 @@ public class WorldRenderer {
 //        shapeCircleShip();
         
     }
+	
+	private void updateShipPosition() {
+		if(camera.position.x - ship.getPosition().x > 400) {
+			ship.setPosition(camera.position.x - 400, ship.getPosition().y);
+		}
+	}
 	
 	
 	private void drawBullet(SpriteBatch batch) {

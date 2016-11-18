@@ -66,9 +66,12 @@ public class Ship {
 	 }
 	 
 	 public void move(int dir) { 
-	        position.x += SPEED * DIR_DIFF[dir][0];
-	        position.y += SPEED * DIR_DIFF[dir][1];
-	  }
+		 
+		 position.x += SPEED * DIR_DIFF[dir][0];
+	     if(position.y + SPEED * DIR_DIFF[dir][1] < 550 && position.y + SPEED * DIR_DIFF[dir][1] > 0) {
+	       	position.y += SPEED * DIR_DIFF[dir][1];
+	     }
+	 }
 	 
 	 public Vector2 getPosition() {
 		    return position;    
@@ -113,5 +116,10 @@ public class Ship {
 	 
 	 public Circle getShipCircle() {
 		 return shipCircle;
+	 }
+	 
+	 public void setPosition(float x, float y) {
+		 position.x = x;
+		 position.y = y;
 	 }
 }
