@@ -11,7 +11,7 @@ public class SoundEffect {
 	
 	public SoundEffect() {
 		bgm = Gdx.audio.newMusic(Gdx.files.internal("bgm.mp3"));
-		shot = Gdx.audio.newSound(Gdx.files.internal("bullet.mp3"));
+		shot = Gdx.audio.newSound(Gdx.files.internal("Bullet.mp3"));
 		bomb = Gdx.audio.newSound(Gdx.files.internal("Bomb.mp3"));
 	}
 	
