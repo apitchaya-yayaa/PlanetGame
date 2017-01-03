@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.Array;
 public class Enemy {
 	public PlanetGame planetGame;
 	public Texture enemyImg;
-	private Enemy enemy1;
+//	private Enemy enemy1;
 	private Vector2 position;
 	private int speed = 3;
 	private int health = 4;

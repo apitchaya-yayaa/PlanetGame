@@ -10,8 +10,8 @@ public class EnemyQue {
 	private int front = 0;
 	private int rear = 0;
 	private BulletQue bulletQue;
-	public static final Texture enemy1Img = new Texture("enemy1.png");
-	public static final Texture enemy2Img = new Texture("enemy2.png");
+//	public static final Texture enemy1Img = new Texture("enemy1.png");
+//	public static final Texture enemy2Img = new Texture("enemy2.png");
 	
 	public void registerHitEnemyListener() {
 		bulletQue.registerHitEnemyListener(new BulletQue.hitEnemyListener() {

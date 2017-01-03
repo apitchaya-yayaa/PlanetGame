@@ -27,7 +27,7 @@ public class WorldRenderer {
 	private static Texture bulletEnemyImg = new Texture ("bulletenemy.png");;
 	private Texture bgImg;
 	private Texture groundImg;
-	private Texture enemy1Img;
+//	private Texture enemy1Img;
 	private Texture healthImg = new Texture ("health.png");
 	private Texture life4Img = new Texture ("life4.png");
 	private Texture life3Img = new Texture ("life3.png");
